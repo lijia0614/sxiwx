@@ -21,6 +21,7 @@ class Zy extends Common
     public function __construct() {
         parent::__construct();
         $ips = [
+            '127.0.0.1',
             '36.110.103.118',
             '59.151.100.21',
             '101.226.33.217',
@@ -38,14 +39,11 @@ class Zy extends Common
         }
     }
 
-
+    
     /**
      * 获取授权书籍列表
      */
     public function getBookList(){
-//        sign=lower_case(md5(client_id+私钥+额外参数))
-//        $client_id = input('get.client_id');
-//        $sign = strtolower(md5($client_id));
         $ids = Db::name('output_api')->where('cp_id',$this->cp_id)->field('ids')->find();
         $this->ids = $ids['ids'];
         $books = Db::name('book')
