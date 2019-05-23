@@ -1,0 +1,1 @@
+<volist name="menus" id="menu"><a href="javascript:;" parent-id="{$menu.id}" <if condition="$key==0"> class="top_ch"</if>>{$menu['name']}</a></volist> 

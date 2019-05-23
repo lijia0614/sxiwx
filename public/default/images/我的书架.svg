@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="18px" height="15px" viewBox="0 0 18 15" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 49.3 (51167) - http://www.bohemiancoding.com/sketch -->
+    <title>我的书架</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="书架" transform="translate(-403.000000, -334.000000)" fill="#AAAAAA">
+            <g id="Group-6" transform="translate(360.000000, 91.000000)">
+                <g id="left">
+                    <g id="Group-Copy-2" transform="translate(0.000000, 226.000000)">
+                        <path d="M48.5646448,17.0145994 L43,17.0145994 L43,30.3543685 L48.2025328,30.3543685 C49.1438034,30.3543685 51.1749873,30.8822276 51.1749873,31.9643523 L51.1749873,19.4295568 C51.1749873,18.5302894 49.7505137,17.0145994 48.5646448,17.0145994 Z M55.4219027,17.0145994 C54.2348351,17.0145994 52.8104567,18.5302894 52.8104567,19.4295568 L52.8104567,31.9643523 C52.8104567,30.8822276 54.8403658,30.3543685 55.7828351,30.3543685 L60.9853488,30.3543685 L60.9853488,17.0145994 L55.4219027,17.0145994 Z" id="我的书架"></path>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

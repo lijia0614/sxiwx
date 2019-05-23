@@ -1,0 +1,7 @@
+.idea/
+runtime/
+/nbproject/
+/uploads/
+/Html/
+/config/install.lock
+/config/database.php

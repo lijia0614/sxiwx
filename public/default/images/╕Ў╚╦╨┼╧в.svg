@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="18px" height="21px" viewBox="0 0 18 21" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 49.3 (51167) - http://www.bohemiancoding.com/sketch -->
+    <title>个人信息</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="书架" transform="translate(-403.000000, -452.000000)" fill="#FF647C">
+            <g id="Group-6" transform="translate(360.000000, 91.000000)">
+                <g id="left">
+                    <g id="Group-Copy-5" transform="translate(0.000000, 348.000000)">
+                        <path d="M51.8241207,13 C54.5980229,13 56.8492681,15.2917571 56.8492681,18.1107339 C56.8492681,20.93996 54.5980229,23.2214431 51.8241207,23.2214431 C49.0502185,23.2214431 46.7989733,20.9298098 46.7989733,18.1107339 C46.7989733,15.2917571 49.0502185,13 51.8241207,13 Z M43,31.9928833 C43,27.8556096 44.0351557,26.283853 47.1909967,24.6005673 C48.4271327,23.9312686 50.3266194,25.4523728 51.793916,25.4523728 C53.2512752,25.4523728 55.170882,23.9414189 56.396958,24.6005673 C59.5627854,26.283853 61,27.8455583 61,31.9928833 C61,33.3923081 43,33.483512 43,31.9928833 Z" id="个人信息"></path>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

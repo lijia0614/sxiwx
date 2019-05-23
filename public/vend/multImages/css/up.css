@@ -1,0 +1,145 @@
+#upBox {
+	text-align: center;
+	width: 500px;
+	padding: 20px;
+	border: 1px solid #666;
+	margin: auto;
+	margin-top: 150px;
+	margin-bottom: 200px;
+	position: relative;
+	border-radius: 10px;
+}
+
+#inputBox {
+	border: 1px solid cornflowerblue;
+	color: cornflowerblue;
+	border-radius: 20px;
+	position: relative;
+	text-align: center;
+	line-height: 30px;
+	overflow: hidden;
+	font-size: 14px;
+	width: 100px;
+	height: 30px;
+	background: cornflowerblue;
+	border: 1px solid cornflowerblue;
+	color: white;
+	cursor: pointer;
+	border-radius: 5px;
+	float: left;
+}
+
+#inputBox input {
+	width: 114%;
+	height: 40px;
+	opacity: 0;
+	cursor: pointer;
+	position: absolute;
+	top: 0;
+	left: -14%;
+}
+#mult_up_btn{
+	float: left;
+	margin-left: 10px;
+}
+
+#imgBoxs{
+	text-align: left;
+	width: 100%;
+	clear: both;	
+}
+#imgBox {
+	text-align: left;
+}
+.lastimage{
+	text-align: left;
+	float:left;
+	width: 100%;
+}
+.lastimage img {
+	width: 150px;
+	height: 150px;
+	cursor: pointer;
+}
+
+.lastimage p {
+	position: absolute;
+	bottom: -1px;
+	left: 0;
+	width: 100%;
+	height: 30px;
+	background: black;
+	text-align: center;
+	line-height: 30px;
+	color: white;
+	font-size: 16px;
+	font-weight: bold;
+	cursor: pointer;
+	display: none;
+}
+
+.imgContainer:hover p {
+	display: block;
+}
+
+
+.imgContainer {
+	display: inline-block;
+	width: 150px;
+	height: 150px;
+	margin-left: 1%;
+	border: solid thin #DDDDDD;
+	border-radius: 5px;
+	position: relative;
+	margin-top: 30px;
+	box-sizing: border-box;
+}
+
+.imgContainer img {
+	width: 100%;
+	height: 150px;
+	cursor: pointer;
+}
+
+.imgContainer p {
+	position: absolute;
+	bottom: -1px;
+	left: 0;
+	width: 100%;
+	height: 30px;
+	background: black;
+	text-align: center;
+	line-height: 30px;
+	color: white;
+	font-size: 12px;
+	cursor: pointer;
+	opacity:0.4;
+	display: none;
+}
+
+.imgContainer:hover p {
+	display: block;
+}
+
+#btn {
+	display: inline-block;
+	text-align: center;
+	line-height: 20px;
+	outline: none;
+	width: 100px;
+	height: 20px;
+	background: #0789D2;
+	border: 1px solid cornflowerblue;
+	color: white;
+	cursor: pointer;
+	border-radius: 5px;
+	border: none;
+    cursor: pointer;
+    padding: 10px 20px;
+    font-size: 12px;
+    text-align: center;
+    background: #179ED2;
+    color: #fff;
+    float: left;
+    background: linear-gradient(to top right, #0781C6, #58C2FE);	
+}

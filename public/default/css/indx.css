@@ -1,0 +1,222 @@
+.Q-miancent{
+    width: 100%;
+    margin-top: 50px;
+}
+ul,li,p,h3,h2{
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+a{
+    text-decoration: none;
+}
+i{
+    font-style: normal;
+}
+.Q-content{
+    width: 1200px;
+    margin-left: auto;
+    margin-right: auto;
+    overflow: hidden;
+}
+.Q-content-left{
+    float: left;
+    width: 870px;
+    margin-right: 30px;
+}
+.Q-content-right{
+    width: 300px;
+    float: left;
+}
+.Q-content-left>ul{
+    width: 100%;
+    overflow: hidden;
+    min-height: 1px;
+}
+.Q-content-left>ul>li{
+    width: 420px;
+    float: left;
+    margin-right: 30px;
+    margin-bottom: 30px;
+    position: relative;
+    height: 255px;
+    box-sizing: border-box;
+    background: #f3f9fb;
+    cursor: pointer;
+    padding: 20px 20px 0 20px;
+}
+.Q-content-left>ul>li:nth-child(2n){
+    margin-right: 0;
+}
+.Q-content-left>ul>li>a>p{
+    font-size: 22px;
+    color: #333;
+    line-height: 30px;
+}
+.poet{
+    margin-top: 20px;
+}
+.poet>img{
+    margin-right: 10px;
+    float: left;
+    width: 14px;
+    height: 17px;
+    display: inline-block;
+    margin-top: 4px;
+}
+.poet span{
+    color: #9b9b9b;
+    font-size: 14px;
+}
+.poet-cont{
+    margin-top: 10px;
+    overflow: hidden;
+    height: 140px;
+}
+.poet-cont p{
+    margin-top: 4px;
+    color: #666666;
+    font-size: 16px;
+    line-height: 30px;
+}
+.poet-cont span{
+    margin-top: 4px;
+    color: #666666;
+    font-size: 16px;
+    line-height: 30px;
+}
+.lick-zam{
+    position: absolute;
+    right: 30px;
+    top: 30px;
+    cursor: pointer;
+}
+.lick-zam img{
+    width: 18px;
+    height: 20px;
+    display: inline-block;
+    float: left;
+    margin-right: 8px;
+}
+.lick-zam span{
+    color: #777777;
+    font-size: 14px;
+}
+.Q-content-left>ul>li:hover{
+    background: url("../images/blossoms.png") no-repeat ;
+    background-size: 100% 100%;
+}
+.Q-hot-tuijian{
+    width: 100%;
+    padding:20px 15px 0 15px;
+    box-sizing: border-box;
+    background: #f3f9fb;
+}
+.Q-hot-tuijian h3{
+    color: #333;
+    font-size: 22px;
+    font-weight: normal;
+}
+.Q-hot-tuijian ul li{
+    list-style: disc;
+    margin-top: 18px;
+	float:left;
+    color: #0e72a1;
+}
+.Q-hot-tuijian ul {
+    margin-left: 30px;
+}
+.Q-hot-tuijian ul li a{
+    color: #333;
+    font-size: 16px;
+    line-height: 30px;
+    width: 100%;
+    display: block;
+    white-space:nowrap;
+    overflow:hidden;
+    text-overflow:ellipsis;
+	float: left;
+}
+.Q-img-shows{
+    width: 100%;
+    margin-top: 100px;
+}
+.Q-img-shows a{
+    margin-top: 30px;
+    display: block;
+    width: 100%;
+}
+.Q-img-shows a:first-child{
+    margin-top: 0;
+}
+.Q-img-shows a img{
+    display: inline-block;
+    width: 100%;
+    height: 100%;
+}
+
+
+/*第二个*/
+.Q-content-left-poety{
+    padding: 30px 30px 0 30px;
+    box-sizing: border-box;
+    background: #f3f9fb;
+}
+.poety-txt{
+    width: 100%;
+    padding-bottom: 30px;
+    border-bottom: 1px solid #cccccc;
+    text-align: center;
+}
+.poety-txt h2{
+    text-align: center;
+    color: #333333;
+    font-size: 22px;
+    line-height: 30px;
+}
+.poet-txt{
+    width: 100%;
+    text-align: center;
+    margin-top: 20px;
+}
+.poet-txt img{
+    margin-right: 10px;
+    width: 14px;
+    height: 17px;
+    display: inline-block;
+    top: 3px;
+    position: relative;
+}
+.poet-txt span {
+    color: #9b9b9b;
+    font-size: 14px;
+}
+.poet-cont-models{
+    margin-top: 15px;
+    text-align: center;
+}
+.poet-cont-models p{
+    margin-top: 15px;
+    color: #777777;
+    font-size: 16px;
+    line-height: 30px;
+}
+.to-click-zan{
+    padding-top: 30px;
+    padding-bottom: 40px;
+    width: 100%;
+    cursor: pointer;
+    text-align: center;
+}
+.to-click-zan img{
+    position: relative;
+    width: 18px;
+    height: 20px;
+    display: inline-block;
+    top: 3px;
+    margin-right: 8px;
+}
+.to-click-zan span{
+    color: #777777;
+    font-size: 14px;
+}

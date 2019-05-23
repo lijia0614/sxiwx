@@ -1,0 +1,205 @@
+/*css 初始化 */
+html, body, ul, li, ol, dl, dd, dt, p, h1, h2, h3, h4, h5, h6, form, fieldset, legend, img {
+    margin: 0;
+    padding: 0;
+}
+
+/*将标签原有的默认内外边距去掉*/
+
+fieldset, img, input, button {
+    border: none; /*去掉边框*/
+    padding: 0;
+    margin: 0;
+    outline-style: none; /*去掉环绕边框*/
+}
+
+ul, ol {
+    list-style: none; /*去掉原样式中的小黑点*/
+    /*ctrl+alt+l*/
+}
+
+input {
+    padding-top: 0;
+    padding-bottom: 0;
+
+}
+input::-webkit-input-placeholder, textarea::-webkit-input-placeholder {   
+ /* WebKit browsers */   
+color: #999;   
+}   
+input:-moz-placeholder, textarea:-moz-placeholder {   
+/* Mozilla Firefox 4 to 18 */   
+color: #999;   
+}   
+input::-moz-placeholder, textarea::-moz-placeholder {   
+ /* Mozilla Firefox 19+ */   
+color: #999;   
+}   
+input:-ms-input-placeholder, textarea:-ms-input-placeholder {   
+ /* Internet Explorer 10+ */   
+color: #999;   
+}
+
+select, input {
+    vertical-align: middle; /*输入字居中显示*/
+}
+
+select, input, textarea {
+    font-size: 14px;
+    margin: 0;
+}
+
+/**/
+textarea {
+    resize: none; /*防止拖动*/
+}
+
+img {
+    border: 0;
+    vertical-align: middle; /*  去掉图片底部默认的3像素空白缝隙*/
+}
+
+table {
+    border-collapse: collapse; /*合并外边线*/
+}
+
+body {
+    font-family:  Microsoft YaHei, Arial, "\5b8b\4f53";
+    background: #0058ac;
+	background-image:url(../images/banner_1.jpg);
+
+}
+
+.clearfix:before, .clearfix:after {
+    content: "";
+    display: table;
+}
+
+.clearfix:after {
+    clear: both;
+}
+
+.clearfix {
+    *zoom: 1; /*IE/7/6*/
+    /*兼容IE6下的写法*/
+}
+
+h1, h2, h3, h4, h5, h6 {
+    text-decoration: none; /**/
+    font-weight: normal; /*不加粗*/
+    font-size: 100%;
+}
+
+/*login 开始*/
+.login{
+    width: 400px;
+    height: 500px;
+    background-color: #FFFFFF;
+    position: absolute;
+    left:50%;
+    top:50%;
+    margin-left: -200px;
+    margin-top: -250px;
+	border-radius:10px;
+	box-shadow: 0 0 10px #FFFFFF; 	
+}
+.login>.login_title{
+    height: 100px;
+	line-height:150px;
+    text-align: center;	
+	position: absolute;
+    top: -15%;
+    left: 35%;
+}
+.login>.login_title>p{
+    color:#fff;
+    font-size: 40px;
+    font-weight: 600;
+    margin-top: -8px;
+    letter-spacing:5px
+}
+.login>.login_main{
+    width: 400px;
+    height: 320px;
+}
+
+.login>.login_main>.main_right{
+    height: 320px;
+    width: 400px;
+
+
+}
+.login>.login_main>.main_right>.right_title{
+    color:#666;
+    font-size: 18px;
+    text-align: center;
+    line-height: 80px;
+    margin-top: 50px;
+}
+.login>.login_main>.main_right>form>div{
+    position: relative;
+}
+.login>.login_main>.main_right>form>div>img{
+    position: absolute;
+    left: 82px;
+    top:7px;
+}
+.login>.login_main>.main_right>form input{
+    height: 35px;
+    width: 250px;
+    border: 1px solid #d3d8dc;
+    box-sizing: border-box;
+    margin-bottom: 20px;
+    margin-left: 70px;
+    -moz-border-radius: 3px;
+    -webkit-border-radius: 3px;
+    border-radius: 3px;
+    color:#333;
+    padding-left: 40px;
+}
+
+.login>.login_main>.main_right>form>.code>input{
+    width: 138px;
+	float:left;
+}
+.login>.login_main>.main_right>form>.code>.code_img{
+	float:left;
+	margin-left:5px;
+    cursor: pointer;
+	border:1px #d3d8dc solid;
+	border-radius:5px;
+}
+.login>.login_main>.main_right>form input:focus{
+    border: 1px solid #ccc;
+}
+.login>.login_main>.main_right>form>.yes_login{ clear:both;}
+.login>.login_main>.main_right>form>.yes_login> button{
+    display: block;
+    width: 250px;
+    height: 35px;
+    line-height: 35px;
+    text-align: center;
+    background-color: #209850;
+    -moz-border-radius: 3px;
+    -webkit-border-radius: 3px;
+    border-radius: 3px;
+    color:#fff;
+    text-decoration: none;
+    margin-left: 70px;
+    font-size: 16px;
+    cursor: pointer;
+}
+.login>.login_main>.main_right>form>.yes_login>a:hover{
+    background-color: #0058af;
+}
+.login>.login_footer{
+    text-align: center;
+    padding-top: 20px;
+}
+.login>.login_footer>p{
+    font-size: 14px;
+    color:#666;
+    line-height: 30px;
+}
+
+/*login 结束*/

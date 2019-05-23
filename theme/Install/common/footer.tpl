@@ -1,0 +1,1 @@
+<div class="footer"> &copy; 2016 - 2017 <a href="http://www.zhi-meng.cn" target="_blank">www.zhi-meng.cn</a></div>

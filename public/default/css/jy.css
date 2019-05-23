@@ -1,0 +1,136 @@
+.sungaitable table {
+  width: 100%;
+  text-align: center;
+}
+.sungaitable table thead tr {
+  height: 50px;
+  background: #f3f9fb;
+  color: #999;
+}
+.sungaitable table tbody tr {
+  height: 50px;
+  background: #fff;
+}
+.sungaitable table tbody tr:hover .sxplay {
+  display: inline-block;
+  width: 24px;
+  height: 24px;
+  background: url("../images/playon.png");
+  background-size: 100% 100%;
+}
+.sungaitable table tbody tr .suntit span {
+  margin-right: 10px;
+  color: #999;
+}
+.sungaitable table tbody tr:nth-child(even) {
+  background: #f3f9fb;
+}
+.sxplay {
+  display: inline-block;
+  width: 24px;
+  height: 24px;
+  background: url("../images/play.png");
+  background-size: 100% 100%;
+}
+.sxplayon {
+  display: inline-block;
+  width: 24px;
+  height: 24px;
+  background: url("../images/playon.png");
+  background-size: 100% 100%;
+}
+.pagbig {
+  display: inline-block;
+  width: 100%;
+  text-align: center;
+  margin-top: 20px;
+  border-top: 1px solid #0e72a1;
+  padding-top: 20px;
+}
+.pageBox {
+  display: inline-block;
+}
+.pageBox #pre,
+.pageBox #next {
+  width: 60px;
+  height: 20px;
+  line-height: 20px;
+  color: #999;
+  border: none;
+}
+.pageBox .contpage {
+  margin-left: 10px;
+  font-size: 14px;
+  color: #999999;
+}
+.pageBox .page {
+  float: left;
+  text-align: center;
+  padding-right: 10px;
+  border-right: 1px solid #ddd;
+}
+.pageBox .page li {
+  display: inline-block;
+  cursor: pointer;
+  width: 30px;
+  height: 30px;
+  line-height: 30px;
+  color: #999999;
+  margin: 0 5px;
+  text-align: center;
+  font-size: 14px;
+  border: 1px solid #ddd;
+}
+.pageBox .page .selectNum {
+  background: #0e72a1;
+  color: #ffffff;
+  border: none;
+}
+.pageBox .pagepan {
+  display: inline-block;
+  margin-left: 10px;
+  font-size: 14px;
+  color: #999999;
+}
+.pageBox .pagepan input {
+  width: 30px;
+  height: 30px;
+  text-align: center;
+  margin-left: 5px;
+  margin-right: 5px;
+  border: 1px solid #ddd;
+}
+.pageBox .pagepan em {
+  display: inline-block;
+  font-style: normal;
+  width: 50px;
+  height: 30px;
+  line-height: 28px;
+  margin-left: 10px;
+  color: #999;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  text-align: center;
+}
+.pageBoxx {
+  display: inline-block;
+  width: 100%;
+  text-align: center;
+  margin: 40px 0;
+}
+.jy12 {
+  width: 1200px;
+  margin: 0 auto;
+}
+.audiobox {
+  position: fixed;
+  width: 100%;
+  bottom: 0;
+  border-top: 1px solid #ccc;
+}
+.audiobox audio {
+  width: 100%;
+}
+.none {
+  display: none;
+}
