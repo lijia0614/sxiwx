@@ -367,7 +367,7 @@
                             </div>
                             <zhimeng table="book" where="[['is_del','=',0],['is_index','=',1],['status','=',1]]" order="index_sort asc" limit="5" >
                                 <dl <if condition="$key eq 0">style="display:block"</if> >
-                                <p>{$r.info}</p>
+                                <p>{$r.info|trimHtml=0,100,true}</p>
                                 </dl>
                             </zhimeng>
 
@@ -423,7 +423,7 @@
                                                 <img src="{$r.image}" alt="">
                                             </a>
                                             <div class="desc">
-                                                {$r.info}
+                                                {$r.info|trimHtml=0,100,true}
                                             </div>
                                         </div>
                                     </div>
@@ -538,18 +538,17 @@
                                         <h5 style="width: 100%;">{$vo.name}</h5>
                                     </a>
                                     <p class="desc">
-                                        {$vo.info}
+                                        {$vo.info|trimHtml=0,100,true}
                                     </p>
                                     <div class="author">
                                         <i class=" iconfont icon-zuozhe"></i>
                                         <span class="name">{$vo.author}</span><span class="num">
-                                                <if condition="$vo['words_num']">
-                                                    {$vo.words_num}字
-                                                    <else/>
-                                                    0字
-                                                </if>
-
-                                            </span>
+                                            <if condition="$vo['words_num']">
+                                                {$vo.words_num}字
+                                                <else/>
+                                                0字
+                                            </if>
+                                        </span>
                                     </div>
                                 </div>
                             </volist>
@@ -582,7 +581,7 @@
                                     <span class="title">{$r.name}</span>
                                 </a>
                                 <div class="desc desc_flol">
-                                    {$r.info}
+                                    {$r.info|trimHtml=0,150}
                                 </div>
                                 <a href="{:url('read/index',['id'=>$r['id']])}" target="_blank" class="read">
                                     立即阅读

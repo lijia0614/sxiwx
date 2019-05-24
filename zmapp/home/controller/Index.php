@@ -44,6 +44,7 @@ class Index extends Common
             ->order('index_sort asc')
             ->limit(8)
             ->select();
+
         foreach ($index as $k => $v){
             if($v['words_num'] > 9999){
                 // 四舍五入保留小数点后两位
@@ -92,7 +93,6 @@ class Index extends Common
             ->field('id,name,u_id,cid,words_num,image,info,author')
             ->limit(6)
             ->select();
-
         // 点击榜 top10
         $clicks = Db::name('book')
             ->where('status', 1)
@@ -101,7 +101,6 @@ class Index extends Common
             ->field('id,name,u_id,image,info')
             ->limit(10)
             ->select();
-
         // 订阅帮 top10
         $take = Db::name('book')
             ->where('status', 1)
@@ -120,13 +119,11 @@ class Index extends Common
             ->limit(50)
             ->field('a.id,a.name,a.time,a.b_id')
             ->buildSql();
-
         $news_chapter = Db::table($new_table . 'AS temp')
             ->group('b_id')
             ->order('time desc')
             ->limit(10)
             ->select();
-//        c_print($news_chapter);
         foreach ($news_chapter as $k => $v) {
             $book = Db::name('book')
                 ->where('id', $v['b_id'])
@@ -136,19 +133,16 @@ class Index extends Common
             $news_chapter[$k]['words_num'] = $book['words_num'];
             $news_chapter[$k]['b_id'] = $book['id'];
         }
-
         foreach ($news_chapter as $k =>$v){
             if ($v['words_num'] > 9999){
                 $news_chapter[$k]['words_num'] = round($v['words_num']/10000,2).'万';
             }
         }
-
         foreach ($news_chapter as $k=>$v){
             if ($v['book']['status'] == 0){
                 array_splice($news_chapter, $k, 1);
             }
         }
-        
         // 广告2
         $ad = Db::name('ad_postion')
             ->alias('a')
@@ -158,7 +152,6 @@ class Index extends Common
             ->where('b.start_time', '<', time())
             ->where('b.end_time', '>', time())
             ->find();
-
         $this->assign('new', $news_chapter);
         $this->assign('ad', $ad);
         $this->assign('take', $take);
@@ -171,7 +164,6 @@ class Index extends Common
 
     public function agreement()
     {
-
         return view();
     }
 }
