@@ -18,7 +18,8 @@ class Zy extends Common
 
     private $cp_id = 9;
 
-    public function __construct() {
+    public function __construct()
+    {
         parent::__construct();
         $ips = [
             '127.0.0.1',
@@ -29,31 +30,32 @@ class Zy extends Common
             '222.209.32.165' // 本地
         ];
         $ip = $_SERVER["REMOTE_ADDR"];
-        $checkIp = in_array($ip,$ips);
-        if (!$checkIp){
-            z_json(1005,'your IP is not authorized', '');
+        $checkIp = in_array($ip, $ips);
+        if (!$checkIp) {
+            z_json(1005, 'your IP is not authorized', '');
         }
-        $res = Db::name('output_api')->where('cp_id',$this->cp_id)->find();
-        if ($res['status'] != 1){
-            z_json(1005,'Interface has been closed', '');
+        $res = Db::name('output_api')->where('cp_id', $this->cp_id)->find();
+        if ($res['status'] != 1) {
+            z_json(1005, 'Interface has been closed', '');
         }
     }
 
-    
+
     /**
      * 获取授权书籍列表
      */
-    public function getBookList(){
-        $ids = Db::name('output_api')->where('cp_id',$this->cp_id)->field('ids')->find();
+    public function getBookList()
+    {
+        $ids = Db::name('output_api')->where('cp_id', $this->cp_id)->field('ids')->find();
         $this->ids = $ids['ids'];
         $books = Db::name('book')
-            ->where('id','in',$this->ids)
+            ->where('id', 'in', $this->ids)
             ->field('id,name')
             ->select();
-        if ($books){
+        if ($books) {
             m_json($books);
-        }else{
-            c_json(2003,'no information','');
+        } else {
+            c_json(2003, 'no information', '');
         }
     }
 
@@ -61,32 +63,33 @@ class Zy extends Common
     /**
      * 获取书籍详情
      */
-    public function getBookInfo(){
-        $bookid = input('get.id','0','intval');
+    public function getBookInfo()
+    {
+        $bookId = input('get.id', '0', 'intval');
         // 验证书籍id是否受权
-        $check = $this->checkID($bookid);
-        if(!$check){
-            c_json(1004,'id Unauthorized', '');
+        $check = $this->checkID($bookId);
+        if (!$check) {
+            c_json(1004, 'id Unauthorized', '');
         }
-        if (!$bookid){
-            c_json(2000,'id error', '');
+        if (!$bookId) {
+            c_json(2000, 'id error', '');
         }
 
         $book = Db::name('book')
             ->alias('a')
-            ->join('book_category b','a.cid = b.id')
-            ->where('a.id',$bookid)
+            ->join('book_category b', 'a.cid = b.id')
+            ->where('a.id', $bookId)
             ->field('a.id,a.name,a.author,a.is_end,a.info as brief,a.image as cover,b.name as keywords,a.cid')
             ->find();
         $url = $_SERVER['SERVER_NAME'];
-        $book['cover'] = 'http://'.$url.$book['cover'];
-        if ($book['is_end'] == 1){
+        $book['cover'] = 'http://' . $url . $book['cover'];
+        if ($book['is_end'] == 1) {
             $book['complete_status'] = 'Y';
-        }else{
+        } else {
             $book['complete_status'] = 'N';
         }
         unset($book['is_end']);
-        switch ($book['cid']){
+        switch ($book['cid']) {
             case 21:
                 $book['category'] = "女频";
                 $book['category_id'] = 2108;
@@ -153,10 +156,10 @@ class Zy extends Common
                 break;
         }
         unset($book['cid']);
-        if ($book){
+        if ($book) {
             m_json($book);
-        }else{
-            c_json(2003,'no information','');
+        } else {
+            c_json(2003, 'no information', '');
         }
     }
 
@@ -164,30 +167,31 @@ class Zy extends Common
     /**
      * 获取书籍章节列表
      */
-    public function chapterList(){
-        $bookid = input('get.book_id','0','intval');
+    public function chapterList()
+    {
+        $bookId = input('get.book_id', '0', 'intval');
         // 验证书籍id是否受权
-        $check = $this->checkID($bookid);
-        if(!$check){
-            z_json(1004,'book_id Unauthorized', '');
+        $check = $this->checkID($bookId);
+        if (!$check) {
+            z_json(1004, 'book_id Unauthorized', '');
         }
-        if (!$bookid){
-            z_json(2000,'book_id error', '');
+        if (!$bookId) {
+            z_json(2000, 'book_id error', '');
         }
         $list = Db::name('chapter')
-            ->where('b_id',$bookid)
-            ->where('status',1)
+            ->where('b_id', $bookId)
+            ->where('status', 1)
             ->field('id,name,time as create_time')
             ->order('id asc')
             ->select();
-        foreach ($list as $k=>$v){
-            $list[$k]['create_time'] = date('Y-m-d H:i:s',$v['create_time']);
+        foreach ($list as $k => $v) {
+            $list[$k]['create_time'] = date('Y-m-d H:i:s', $v['create_time']);
         }
 
-        if ($list){
+        if ($list) {
             m_json($list);
-        }else{
-            c_json(2003,'no information','');
+        } else {
+            c_json(2003, 'no information', '');
         }
     }
 
@@ -195,31 +199,32 @@ class Zy extends Common
     /**
      * 获取章节内容
      */
-    public function getContent(){
-        $bookid = input('get.book_id','0','intval');
-        $chapterid = input('get.chapter_id','0','intval');
+    public function getContent()
+    {
+        $bookId = input('get.book_id', '0', 'intval');
+        $chapterId = input('get.chapter_id', '0', 'intval');
         // 验证书籍id是否受权
-        $check = $this->checkID($bookid);
-        if(!$check){
-            z_json(1004,'book_id Unauthorized', '');
+        $check = $this->checkID($bookId);
+        if (!$check) {
+            z_json(1004, 'book_id Unauthorized', '');
         }
-        if (!$bookid){
-            z_json(2000,'book_id error', '');
+        if (!$bookId) {
+            z_json(2000, 'book_id error', '');
         }
-        if (!$chapterid){
-            z_json(2000,'chapter_id error', '');
+        if (!$chapterId) {
+            z_json(2000, 'chapter_id error', '');
         }
         $data = Db::name('chapter')
-            ->where('b_id',$bookid)
-            ->where('id',$chapterid)
+            ->where('b_id', $bookId)
+            ->where('id', $chapterId)
             ->field('id,name,content,time as create_time')
             ->find();
-        $data['content'] = trimHtml($data['content'],0,100000);
-        $data['create_time'] = date('Y-m-d H:i:s',$data['create_time']);
-        if ($data){
+        $data['content'] = trimHtml($data['content'], 0, 100000);
+        $data['create_time'] = date('Y-m-d H:i:s', $data['create_time']);
+        if ($data) {
             m_json($data);
-        }else{
-            c_json(2003,'no information','');
+        } else {
+            c_json(2003, 'no information', '');
         }
     }
 
@@ -229,10 +234,11 @@ class Zy extends Common
      * @param $id
      * @return bool
      */
-    public function checkID($id){
-        $ids = Db::name('output_api')->where('cp_id',$this->cp_id)->field('ids')->find();
-        $idArr = explode(',',$ids['ids']);
-        return in_array($id,$idArr);
+    public function checkID($id)
+    {
+        $ids = Db::name('output_api')->where('cp_id', $this->cp_id)->field('ids')->find();
+        $idArr = explode(',', $ids['ids']);
+        return in_array($id, $idArr);
     }
 
 
