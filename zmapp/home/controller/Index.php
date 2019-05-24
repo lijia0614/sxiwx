@@ -23,7 +23,6 @@ class Index extends Common
     }
 
 
-
     /**
      * 首页
      * @author 四川挚梦科技有限公司
@@ -41,30 +40,15 @@ class Index extends Common
             ->where('is_del', 0)
             ->where('is_index', 1)
             ->where('status', 1)
+            ->field('id,name,u_id,cid,words_num,image,info,author')
             ->order('index_sort asc')
             ->limit(8)
             ->select();
         foreach ($index as $k => $v){
             if($v['words_num'] > 9999){
+                // 四舍五入保留小数点后两位
                 $number = round($v['words_num']/10000,2);
                 $index[$k]['words_num'] = $number.'万';
-            }
-        }
-        foreach ($index as $k => $v) {
-            $chapter_list = Db::name('chapter')
-                ->where('b_id', $v['id'])
-                ->where('is_del', 0)
-                ->where('status', 1)
-                ->field('content')
-                ->select();
-            $w = 0; // 字数
-            foreach ($chapter_list as $key => $val) {
-                $w += mb_strlen(strip_tags($val['content']), 'utf-8');
-            }
-            $index[$k]['w'] = $w;
-            if ($index[$k]['w'] > 9999){
-                $number = round($v['words_num']/10000,2);
-                $index[$k]['w'] = $number.'万';
             }
         }
 
@@ -73,6 +57,7 @@ class Index extends Common
             ->where('is_okami', 1)
             ->where('status', 1)
             ->order('okami_sort asc')
+            ->field('id,name,u_id,cid,words_num,image,info,author')
             ->limit(3,3)
             ->select();
 
@@ -84,7 +69,13 @@ class Index extends Common
         }
         $this->assign('dashen',$dashen);
         // 精品推荐 is_fine：1; top 4
-        $fine = Db::name('book')->where('is_del', 0)->where('is_fine', 1)->order('fine_sort asc')->limit(4)->select();
+        $fine = Db::name('book')
+            ->where('is_del', 0)
+            ->where('is_fine', 1)
+            ->order('fine_sort asc')
+            ->field('id,name,u_id,cid,words_num,image,info,author')
+            ->limit(4)
+            ->select();
         foreach ($fine as $k => $v){
             if($v['words_num'] > 9999){
                 $number = round($v['words_num']/10000,2);
@@ -98,6 +89,7 @@ class Index extends Common
             ->where('is_del', 0)
             ->where('is_okami', 1)
             ->order('okami_sort asc')
+            ->field('id,name,u_id,cid,words_num,image,info,author')
             ->limit(6)
             ->select();
 
@@ -106,6 +98,7 @@ class Index extends Common
             ->where('status', 1)
             ->where('is_del', 0)
             ->order('clicks desc,id asc')
+            ->field('id,name,u_id,image,info')
             ->limit(10)
             ->select();
 
@@ -114,6 +107,7 @@ class Index extends Common
             ->where('status', 1)
             ->where('is_del', 0)
             ->order('takes desc,id asc')
+            ->field('id,name,u_id,image,info')
             ->limit(10)
             ->select();
         // 最近更新
@@ -154,8 +148,7 @@ class Index extends Common
                 array_splice($news_chapter, $k, 1);
             }
         }
-
-
+        
         // 广告2
         $ad = Db::name('ad_postion')
             ->alias('a')
