@@ -27,6 +27,7 @@ class Zy extends Common
             '59.151.100.21',
             '101.226.33.217',
             '182.48.105.10',
+            '118.192.170.16',
             '222.209.32.165' // 本地
         ];
         $ip = $_SERVER["REMOTE_ADDR"];
@@ -170,7 +171,6 @@ class Zy extends Common
     public function chapterList()
     {
         $bookId = input('get.book_id', '0', 'intval');
-        // 验证书籍id是否受权
         $check = $this->checkID($bookId);
         if (!$check) {
             z_json(1004, 'book_id Unauthorized', '');
@@ -203,7 +203,6 @@ class Zy extends Common
     {
         $bookId = input('get.book_id', '0', 'intval');
         $chapterId = input('get.chapter_id', '0', 'intval');
-        // 验证书籍id是否受权
         $check = $this->checkID($bookId);
         if (!$check) {
             z_json(1004, 'book_id Unauthorized', '');
@@ -230,8 +229,8 @@ class Zy extends Common
 
 
     /**
-     * 验证bookid权限
-     * @param $id
+     * 验证bookId是否受权
+     * @param $id //书籍id
      * @return bool
      */
     public function checkID($id)

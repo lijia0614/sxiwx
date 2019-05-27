@@ -38,6 +38,53 @@ class Read extends Common {
             ->find();
 //        c_print($book['info']);
         $this->assign('info',$book['info']);
+        if ($book['type'] == 3){
+            // 三方平台的书籍
+            $bookId = $book['other_bookid'];
+            $url = 'http://store.zhewenit.com/api/Shuangxige/structure?bookId='.$bookId;
+            $res = httpPost($url);
+            if ($res['code'] != 0){
+                return false;
+            }
+            $otherData = object_array($res['data']);
+            $otherChapter = $otherData['books'];
+            $otherNew = end($otherChapter); // 获取最后一章
+            $otherFirst = reset($otherChapter); // 获取第一章
+
+            $get_content_url = 'http://store.zhewenit.com/api/Shuangxige/chapterinfo?bookId='.$bookId.'&chapterId='.$otherNew['chapterid'];
+            $other_r = httpPost($get_content_url);
+            $c_info = object_array($other_r['data']);
+            $content = $c_info['books']['content'];
+            $otherNew['content'] = mb_substr(strip_tags($content), 0, 120, 'utf-8');
+            $otherCount = count($otherChapter);
+            $this->assign('otherCount',$otherCount);
+            $this->assign('otherNew',$otherNew);
+            $this->assign('first_id',$otherFirst['chapterid']);
+            $this->assign('book_id',$bookId);
+        }
+        if ($book['type'] == 4){
+            $bookId = $book['other_bookid'];
+            $url = 'http://www.bqread.com/api/shuangxi/get_chapter_list.php?aid='.$bookId;
+            $res = httpPost($url);
+            if ($res['code'] != 0){
+                return false;
+            }
+            $otherChapter = object_array($res['data']);
+            $otherNew = end($otherChapter); // 获取最后一章
+            $otherFirst = reset($otherChapter); // 获取第一章
+            $get_content_url = 'http://www.bqread.com/api/shuangxi/get_chapter_content.php?aid='.$bookId.'&chapterid='.$otherNew['chapterid'];
+            $other_r = httpPost($get_content_url);
+            $c_info = object_array($other_r['data']);
+
+            $content = $c_info['content'];
+            $otherNew['content'] = mb_substr(strip_tags($content), 0, 120, 'utf-8');
+            $otherCount = count($otherChapter);
+
+            $this->assign('otherCount',$otherCount);
+            $this->assign('otherNew',$otherNew);
+            $this->assign('first_id',$otherFirst['chapterid']);
+            $this->assign('book_id',$bookId);
+        }
         if (!$book){
             $this->error('没有相关的书籍信息！','index/index');
         }
@@ -49,7 +96,11 @@ class Read extends Common {
             ->field('content')
             ->select();
 
-        $w = $book['words_num']; // 字数
+        $w = 0; // 字数
+        foreach ($chapter_list as $k=>$v){
+            $w += mb_strlen(strip_tags(DeleteHtml($v['content'])),'utf-8');
+        }
+//        c_print($w);
         $beginToday = mktime(0,0,0,date('m'),date('d'),date('Y'));
         $endToday = mktime(0,0,0,date('m'),date('d')+1,date('Y'))-1;
 
@@ -466,7 +517,7 @@ class Read extends Common {
      * 阅读章节
      *
      */
-	public function read(){
+    public function read(){
         $user_id = $this->user_id;
         if ($user_id){
             $user = Db::name('member')->where('id',$user_id)->find();
@@ -481,6 +532,25 @@ class Read extends Common {
                 ->where('is_del',0)
                 ->where('status',1)
                 ->find();
+            if ($book['type'] == 3){
+                $uri = 'http://store.zhewenit.com/api/Shuangxige/structure?bookId='.$bookId;
+                $rel = httpPost($uri);
+                if ($rel['code'] != 0){
+                    return false;
+                }
+                $resData = object_array($rel['data']);
+                $chapterData = $resData['books'];
+
+            }elseif ($book['type'] == 4){
+                // 获取章节列表
+                $url = 'http://www.bqread.com/api/shuangxi/get_chapter_list.php?aid='.$bookId;
+                $res = httpPost($url);
+                if ($res['code'] != 0){
+                    return false;
+                }
+                $chapterData = object_array($res['data']);
+            }
+
         }else{
             $book = Db::name('book')
                 ->where('id',$get['b_id'])
@@ -516,27 +586,92 @@ class Read extends Common {
             }
         }
 
+        if ($book['type'] == 3){
+            // 第三方平台的书籍
+            foreach ($chapterData as $key=>$val){
+                if ($get['id'] == $val['chapterid']){
+                    $num = $val['sort'];
+                }
+            }
+            $this_next = $this->getNext($chapterData,$num);
+            foreach ($chapterData as $key=>$val){
+                if ($val['sort'] == $this_next){
+                    $nexts = $chapterData[$key];
+                }
+            }
+            $this_prev = $this->getPrev($chapterData,$num);
+            foreach ($chapterData as $key=>$val){
+                if ($val['sort'] == $this_prev){
+                    $prevs = $chapterData[$key];
+                }
+            }
+
+        }
+        elseif ($book['type'] == 4){
+//            c_print($chapterData);
+            foreach ($chapterData as $key=>$val){
+                if ($get['id'] == $val['chapterid']){
+                    $num = $key+1;
+                }
+            }
+
+            $this_next = $this->getNext($chapterData,$num);
+            foreach ($chapterData as $key=>$val){
+                if ($key+1 == $this_next){
+                    $nexts = $chapterData[$key];
+                }
+            }
+            $this_prev = $this->getPrev($chapterData,$num);
+            foreach ($chapterData as $key=>$val){
+                if ($key+1 == $this_prev){
+                    $prevs = $chapterData[$key];
+                }
+            }
+        }
         else{
             // 上一页
             $prevs = Db::name("chapter")->where("b_id",$get['b_id'])->where('id','<',$get['id'])->order("id desc")->find();
             // 下一页
-            $nexts = Db::name("chapter")
-                ->where("b_id",$get['b_id'])
-                ->where('id','>',$get['id'])
-                ->where('status',1)
-                ->order("id asc")
-                ->find();
+            $nexts = Db::name("chapter")->where("b_id",$get['b_id'])->where('id','>',$get['id'])->order("id asc")->find();
         }
 
         // 查询分类名b_
         $category = Db::name('book_category')->where('id',$book['cid'])->find();
-        
+
         // 查询收费类型
         if ($book['node'] != ''){
             // 查询该章节是否收费
             if($this->user_id == $book['u_id'] && $this->user_id){
 
+                // 作者自己本身不收费
+                if ($book['type'] == 3){
+                    $get_content_url = 'http://store.zhewenit.com/api/Shuangxige/chapterinfo?bookId='.$bookId.'&chapterId='.$get['id'];
+                    $r = httpPost($get_content_url);
+                    $c_info = object_array($r['data']);
+                    $data = $c_info['books'];
 
+                    $data['content'] = str_replace("\r\n\r\n","<br/>",$data['content']);
+                    $data['content'] = str_replace("\n","<br/>",$data['content']);
+                    $this->assign('data',$data);
+                    $this->assign('book',$book);
+                    $this->assign('prevs',$prevs);
+                    $this->assign('nexts',$nexts);
+                    $this->assign('category',$category);
+                    return view();
+                }
+                if ($book['type'] == 4){
+                    $get_content_url = 'http://www.bqread.com/api/shuangxi/get_chapter_content.php?aid='.$bookId.'&chapterid='.$get['id'];
+                    $r = httpPost($get_content_url);
+                    $data = object_array($r['data']);
+                    $data['content'] = '&nbsp&nbsp&nbsp&nbsp'.str_replace("\r\n\r\n","<br/>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp",$data['content']);
+                    $data['content'] = '&nbsp&nbsp&nbsp&nbsp'.str_replace("\n","<br/>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp",$data['content']);
+                    $this->assign('data',$data);
+                    $this->assign('book',$book);
+                    $this->assign('prevs',$prevs);
+                    $this->assign('nexts',$nexts);
+                    $this->assign('category',$category);
+                    return view();
+                }
                 $data =  Db::name('chapter')->where('b_id',$get['b_id'])->where('id',$get['id'])->find();
                 $count = mb_strlen(strip_tags(DeleteHtml($data['content'])),'UTF-8'); // 字数
                 $this->assign('count',$count);
@@ -548,18 +683,63 @@ class Read extends Common {
                 return view();
             }
             $node = $book['node'];
-            $num = Db::name('chapter')  // 统计当前是第多少章
-            ->where('b_id',$get['b_id'])
-                ->where('id','<=',$get['id'])
-                ->where('status',1)
-                ->count('id');
 
+            if ($book['type'] == 3){
+                foreach ($chapterData as $key=>$val){
+                    if ($get['id'] == $val['chapterid']){
+                        $num = $val['sort'];
+                    }
+                }
+            }elseif ($book['type'] == 4){
+
+                foreach ($chapterData as $key=>$val){
+                    if ($get['id'] == $val['chapterid']){
+                        $num = $key+1;
+                    }
+                }
+            }
+            else{
+                $num = Db::name('chapter')  // 统计当前是第多少章
+                ->where('b_id',$get['b_id'])
+                    ->where('id','<=',$get['id'])
+                    ->where('status',1)
+                    ->count('id');
+
+            }
             if($num > ($node-1)){
 //                 echo "收费";
                 // 检查用户是否是会员
                 $check_vip = checkVip($this->user_id);
                 if ($check_vip){
                     // 是会员
+                    if ($book['type'] == 3){
+                        $get_content_url = 'http://store.zhewenit.com/api/Shuangxige/chapterinfo?bookId='.$bookId.'&chapterId='.$get['id'];
+                        $r = httpPost($get_content_url);
+                        $c_info = object_array($r['data']);
+                        $data = $c_info['books'];
+                        $data['content'] = str_replace("\r\n\r\n","<br/><br/>",$data['content']);
+                        $data['content'] = str_replace("\n","<br/><br/>",$data['content']);
+                        $this->assign('data',$data);
+                        $this->assign('book',$book);
+                        $this->assign('prevs',$prevs);
+                        $this->assign('nexts',$nexts);
+                        $this->assign('category',$category);
+                        return view();
+                    }
+                    if ($book['type'] == 4){
+                        $get_content_url = 'http://www.bqread.com/api/shuangxi/get_chapter_content.php?aid='.$bookId.'&chapterid='.$get['id'];
+                        $r = httpPost($get_content_url);
+                        $data = object_array($r['data']);
+                        $data['content'] = '&nbsp&nbsp&nbsp&nbsp'.str_replace("\r\n\r\n","<br/><br/>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp",$data['content']);
+                        $data['content'] = '&nbsp&nbsp&nbsp&nbsp'.str_replace("\n","<br/><br/>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp",$data['content']);
+                        $this->assign('data',$data);
+                        $this->assign('book',$book);
+                        $this->assign('prevs',$prevs);
+                        $this->assign('nexts',$nexts);
+                        $this->assign('category',$category);
+                        return view();
+                    }
+
                     $data =  Db::name('chapter')->where('b_id',$get['b_id'])->where('id',$get['id'])->find();
                     $count = mb_strlen(strip_tags(DeleteHtml($data['content'])),'UTF-8'); // 字数
                     $this->assign('data',$data);
@@ -579,7 +759,33 @@ class Read extends Common {
 
                 if ($is_one){
                     // 已经购买过本章节
-
+                    if ($book['type'] == 3){
+                        $get_content_url = 'http://store.zhewenit.com/api/Shuangxige/chapterinfo?bookId='.$bookId.'&chapterId='.$get['id'];
+                        $r = httpPost($get_content_url);
+                        $c_info = object_array($r['data']);
+                        $data = $c_info['books'];
+                        $data['content'] = str_replace("\r\n\r\n","<br/><br/>",$data['content']);
+                        $data['content'] = str_replace("\n","<br/><br/>",$data['content']);
+                        $this->assign('data',$data);
+                        $this->assign('book',$book);
+                        $this->assign('prevs',$prevs);
+                        $this->assign('nexts',$nexts);
+                        $this->assign('category',$category);
+                        return view();
+                    }
+                    if ($book['type'] == 4){
+                        $get_content_url = 'http://www.bqread.com/api/shuangxi/get_chapter_content.php?aid='.$bookId.'&chapterid='.$get['id'];
+                        $r = httpPost($get_content_url);
+                        $data = object_array($r['data']);
+                        $data['content'] = '&nbsp&nbsp&nbsp&nbsp'.str_replace("\r\n\r\n","<br/><br/>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp",$data['content']);
+                        $data['content'] = '&nbsp&nbsp&nbsp&nbsp'.str_replace("\n","<br/><br/>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp",$data['content']);
+                        $this->assign('data',$data);
+                        $this->assign('book',$book);
+                        $this->assign('prevs',$prevs);
+                        $this->assign('nexts',$nexts);
+                        $this->assign('category',$category);
+                        return view();
+                    }
                     // 已购买本章节
                     $data =  Db::name('chapter')->where('b_id',$get['b_id'])->where('id',$get['id'])->find();
                     $count = mb_strlen(strip_tags(DeleteHtml($data['content'])),'UTF-8'); // 字数
@@ -603,7 +809,33 @@ class Read extends Common {
                         $is_all = Db::name('reward')->where($all_where)->find(); // 已经购买整本
                         if ($is_all){
                             // 已经购买整本书
-
+                            if ($book['type'] == 3){
+                                $get_content_url = 'http://store.zhewenit.com/api/Shuangxige/chapterinfo?bookId='.$bookId.'&chapterId='.$get['id'];
+                                $r = httpPost($get_content_url);
+                                $c_info = object_array($r['data']);
+                                $data = $c_info['books'];
+                                $data['content'] = str_replace("\r\n\r\n","<br/><br/>",$data['content']);
+                                $data['content'] = str_replace("\n","<br/><br/>",$data['content']);
+                                $this->assign('data',$data);
+                                $this->assign('book',$book);
+                                $this->assign('prevs',$prevs);
+                                $this->assign('nexts',$nexts);
+                                $this->assign('category',$category);
+                                return view();
+                            }
+                            if ($book['type'] == 4){
+                                $get_content_url = 'http://www.bqread.com/api/shuangxi/get_chapter_content.php?aid='.$bookId.'&chapterid='.$get['id'];
+                                $r = httpPost($get_content_url);
+                                $data = object_array($r['data']);
+                                $data['content'] = '&nbsp&nbsp&nbsp&nbsp'.str_replace("\r\n\r\n","<br/><br/>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp",$data['content']);
+                                $data['content'] = '&nbsp&nbsp&nbsp&nbsp'.str_replace("\n","<br/><br/>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp",$data['content']);
+                                $this->assign('data',$data);
+                                $this->assign('book',$book);
+                                $this->assign('prevs',$prevs);
+                                $this->assign('nexts',$nexts);
+                                $this->assign('category',$category);
+                                return view();
+                            }
                             $data =  Db::name('chapter')->where('b_id',$get['b_id'])->where('id',$get['id'])->find();
                             $count = mb_strlen(strip_tags(DeleteHtml($data['content'])),'UTF-8'); // 字数
                             $this->assign('data',$data);
@@ -632,6 +864,56 @@ class Read extends Common {
                             return view('read_s');
                         }
                     }else{
+                        if ($book['type'] == 3){
+                            $get_content_url = 'http://store.zhewenit.com/api/Shuangxige/chapterinfo?bookId='.$bookId.'&chapterId='.$get['id'];
+                            $r = httpPost($get_content_url);
+                            $c_info = object_array($r['data']);
+                            $data = $c_info['books'];
+                            $data['content'] = str_replace("\r\n\r\n","<br/><br/>",$data['content']);
+                            $data['content'] = str_replace("\n","<br/><br/>",$data['content']);
+                            $data['content'] = mb_substr(strip_tags($data['content']), 0, 180, 'utf-8');
+
+                            $n = floor($data['words']/1000);
+                            if ($n < 1){
+                                $n = 1;
+                            }
+                            $price = $n * 5 ;
+                            $url='http://'.$_SERVER['SERVER_NAME'].$_SERVER["REQUEST_URI"];
+                            $this->assign('back',$url);
+                            $this->assign('price',$price);
+                            $this->assign('data',$data);
+                            $this->assign('chapter_id',$get['id']);
+                            $this->assign('book',$book);
+                            $this->assign('prevs',$prevs);
+                            $this->assign('nexts',$nexts);
+                            $this->assign('category',$category);
+                            return view('read_s');
+                        }
+                        if ($book['type'] == 4){
+
+                            $get_content_url = 'http://www.bqread.com/api/shuangxi/get_chapter_content.php?aid='.$bookId.'&chapterid='.$get['id'];
+                            $r = httpPost($get_content_url);
+                            $data = object_array($r['data']);
+                            $data['content'] = '&nbsp&nbsp&nbsp&nbsp'.str_replace("\r\n\r\n","<br/><br/>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp",$data['content']);
+                            $data['content'] = '&nbsp&nbsp&nbsp&nbsp'.str_replace("\n","<br/><br/>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp",$data['content']);
+                            $data['content'] = mb_substr(strip_tags($data['content']), 0, 180, 'utf-8');
+
+                            $n = floor($data['words']/1000);
+                            if ($n < 1){
+                                $n = 1;
+                            }
+                            $price = $n * 5 ;
+                            $url='http://'.$_SERVER['SERVER_NAME'].$_SERVER["REQUEST_URI"];
+                            $this->assign('back',$url);
+                            $this->assign('price',$price);
+                            $this->assign('data',$data);
+                            $this->assign('chapter_id',$get['id']);
+                            $this->assign('book',$book);
+                            $this->assign('prevs',$prevs);
+                            $this->assign('nexts',$nexts);
+                            $this->assign('category',$category);
+                            return view('read_s');
+                        }
                         $data =  Db::name('chapter')->where('b_id',$get['b_id'])->where('id',$get['id'])->find();
                         $count = mb_strlen(strip_tags(DeleteHtml($data['content'])),'UTF-8'); // 字数
                         $data['content'] = mb_substr(strip_tags($data['content']), 0, 180, 'utf-8');
@@ -655,6 +937,33 @@ class Read extends Common {
                 }
             }else{
                 // 不收费
+                if ($book['type'] == 3){
+                    $get_content_url = 'http://store.zhewenit.com/api/Shuangxige/chapterinfo?bookId='.$bookId.'&chapterId='.$get['id'];
+                    $r = httpPost($get_content_url);
+                    $c_info = object_array($r['data']);
+                    $data = $c_info['books'];
+                    $data['content'] = str_replace("\r\n\r\n","<br/><br/>",$data['content']);
+                    $data['content'] = str_replace("\n","<br/><br/>",$data['content']);
+                    $this->assign('data',$data);
+                    $this->assign('book',$book);
+                    $this->assign('prevs',$prevs);
+                    $this->assign('nexts',$nexts);
+                    $this->assign('category',$category);
+                    return view();
+                }
+                if ($book['type'] == 4){
+                    $get_content_url = 'http://www.bqread.com/api/shuangxi/get_chapter_content.php?aid='.$bookId.'&chapterid='.$get['id'];
+                    $r = httpPost($get_content_url);
+                    $data = object_array($r['data']);
+                    $data['content'] = '&nbsp&nbsp&nbsp&nbsp'.str_replace("\r\n\r\n","<br/><br/>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp",$data['content']);
+                    $data['content'] = '&nbsp&nbsp&nbsp&nbsp'.str_replace("\n","<br/><br/>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp",$data['content']);
+                    $this->assign('data',$data);
+                    $this->assign('book',$book);
+                    $this->assign('prevs',$prevs);
+                    $this->assign('nexts',$nexts);
+                    $this->assign('category',$category);
+                    return view();
+                }
                 $data =  Db::name('chapter')->where('b_id',$get['b_id'])->where('id',$get['id'])->find();
                 $count = mb_strlen(strip_tags(DeleteHtml($data['content'])),'UTF-8'); // 字数
                 $this->assign('count',$count);
@@ -677,7 +986,7 @@ class Read extends Common {
 
         $money_ary = Db::name('member')->where('id',$this->user_id)->field('money')->find();
         $money = $money_ary['money']; // 余额
-	    $id = input('post.id','','intval'); // 章节ID
+        $id = input('post.id','','intval'); // 章节ID
         $b_id = input('post.b_id','','intval'); // 书籍ID
         $bookId = input('post.bookId','','intval');
         $book = Db::name('book')->where('other_bookid',$bookId)->field('id,type')->find();
@@ -711,7 +1020,7 @@ class Read extends Common {
 
         $week = strtotime('-1week'); // 一周前的时间戳
         $signMoney = Db::name('sign') // 未使用签到的金币
-            ->where('u_id',$this->user_id)
+        ->where('u_id',$this->user_id)
             ->where('status',1)
             ->where('create_time','>',$week)
             ->sum('money');

@@ -630,8 +630,6 @@
                         </ul>
                     </section>
 
-
-
                     <!--小编力荐手机端-->
                     <section id="xblj" class="new-recommend">
                         <h4 class="half-border-bottom">

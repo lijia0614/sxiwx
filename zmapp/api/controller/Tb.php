@@ -23,7 +23,7 @@ class Tb extends Common
             '120.26.199.239',
             '121.40.223.19',
             '125.120.161.248',
-            '222.209.35.43' // 本地
+            '222.209.32.165' // 本地
         ];
         $ip = $_SERVER["REMOTE_ADDR"];
         $checkIp = in_array($ip,$ips);
@@ -69,10 +69,10 @@ class Tb extends Common
         // 验证书籍id是否受权
         $check = $this->checkID($bookid);
         if(!$check){
-            z_json(8401,'bookid Unauthorized', '');
+            z_json(8401,'bookid Unauthorized','');
         }
         if (!$bookid){
-            z_json(8400,'bookid error', '');
+            z_json(8400,'bookid error','');
         }
 
         $book = Db::name('book')

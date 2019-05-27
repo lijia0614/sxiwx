@@ -8,13 +8,9 @@
     <!-- <title></title> -->
     <title>{$name} - {$site_name}</title>
     <link rel="stylesheet" href="css/font_626180_rzkibgk7ogl.css">
-
     <link rel="preload" href="css/0.dd2aeb5c.css" as="style">
-
     <link rel="preload" href="css/style.dd2aeb5c.css" as="style">
-
     <style>
-
     </style>
     <script>
         // 设置rem字号
