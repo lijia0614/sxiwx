@@ -1,7 +1,7 @@
 <?php
 /**
  * 双溪文学输出标准API
- * 微阅云
+ * 米读
  * Created by PhpStorm.
  * User: 李贾
  * Date: 2019/5/9
@@ -14,25 +14,24 @@ namespace app\api\controller;
 use app\home\controller\Common;
 use think\Db;
 
-class Wyy extends Common
+class Md extends Common
 {
+    private $cp_id = 11;
+
     public function __construct() {
         parent::__construct();
-        $cp_id = 10; // 追书
         $ips = [
-            '60.167.76.222',
-			'60.167.77.123',
-			'121.42.249.225',
-			'121.42.37.88 ',
-			'36.63.132.235',
-            '222.211.205.181' // 本地
+            '101.95.101.90',
+			'118.190.216.176',
+			'47.93.213.28',
+            '222.211.206.176' // 本地
         ];
         $ip = $_SERVER["REMOTE_ADDR"];
         $checkIp = in_array($ip,$ips);
         if (!$checkIp){
             z_json(8401,'your IP is not authorized', '');
         }
-        $res = Db::name('output_api')->where('cp_id',$cp_id)->find();
+        $res = Db::name('output_api')->where('cp_id',$this->cp_id)->find();
 
         if ($res['status'] != 1){
             z_json(8403,'Interface has been closed', '');
@@ -50,7 +49,7 @@ class Wyy extends Common
      * 获取书籍列表
      */
     public function getBookList(){
-        $ids = Db::name('output_api')->where('cp_id',10)->field('ids')->find();
+        $ids = Db::name('output_api')->where('cp_id',$this->cp_id)->field('ids')->find();
         $this->ids = $ids['ids'];
         $books = Db::name('book')
             ->where('id','in',$this->ids)
@@ -131,6 +130,9 @@ class Wyy extends Common
     public function getContent(){
         $bookid = input('get.bookid','0','intval');
         $chapterid = input('get.chapterid','0','intval');
+        if (!$chapterid){
+            z_json(8400,'chapterid error', '');
+        }
         // 验证书籍id是否受权
         $check = $this->checkID($bookid);
         if(!$check){
@@ -152,13 +154,15 @@ class Wyy extends Common
         }
     }
 
+
+
     /**
      * 验证bookid权限
      * @param $id
      * @return bool
      */
     public function checkID($id){
-        $ids = Db::name('output_api')->where('cp_id',10)->field('ids')->find();
+        $ids = Db::name('output_api')->where('cp_id',$this->cp_id)->field('ids')->find();
         $idArr = explode(',',$ids['ids']);
         return in_array($id,$idArr);
     }

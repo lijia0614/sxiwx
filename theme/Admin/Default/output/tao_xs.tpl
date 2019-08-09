@@ -1,4 +1,4 @@
-<div class="nav"><span>米读推送书籍列表</span></div>
+<div class="nav"><span>淘小说推送书籍列表</span></div>
 
 <div class="explain">
 	<div class="name"><span>操作提示</span></div>
@@ -30,7 +30,7 @@
 </form>
 
 
-<form action="{:url(SYS_PATH."/".CONTROLLER."/miDu")}" id="formsubmit" class="formvalidate2">
+<form action="{:url(SYS_PATH."/".CONTROLLER."/taoXs")}" id="formsubmit" class="formvalidate2">
 <div class="main"> 
 
 	<empty name="list">
@@ -92,7 +92,7 @@
 		});
 		var ids = (id.join(','));
 		$.ajax({
-			url: "{:url(SYS_PATH."/".CONTROLLER."/miDu")}",
+			url: "{:url(SYS_PATH."/".CONTROLLER."/taoXs")}",
 			data:{"ids":ids},
 			type: "POST",
 			success: function (req) {
@@ -111,7 +111,7 @@
 	$('.editStatus').click(function () {
 		var status = $("#status").find("option:selected").val();
         $.ajax({
-            url: "{:url(SYS_PATH."/".CONTROLLER."/editStatusMd")}",
+            url: "{:url(SYS_PATH."/".CONTROLLER."/editStatusTxs")}",
             data:{"status":status},
             type: "POST",
             success: function (req) {

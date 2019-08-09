@@ -18,135 +18,146 @@
             'use strict';
             var docEl = doc.documentElement;
             var resizeEvt = 'resize';
+
             function recalc() {
                 var clientWidth = docEl.clientWidth;
                 if (!clientWidth) return;
                 docEl.style.fontSize = (100 * clientWidth / 750) + 'px';
             }
+
             recalc();
             win.addEventListener(resizeEvt, recalc, false);
         })(document, window);
     </script>
     <script>window.DEVICE = "pc"</script>
-    <script>
-        var _hmt = _hmt || [];
-        (function () {
-            var hm = document.createElement("script");
-            hm.src = "https://hm.baidu.com/hm.js?0d372343734126a1ba9978a14c0f317f";
-            var s = document.getElementsByTagName("script")[0];
-            s.parentNode.insertBefore(hm, s);
-        })();
-    </script>
     <base href="/">
     <link href="css/0.dd2aeb5c.css" rel="stylesheet">
     <link href="css/style.dd2aeb5c.css" rel="stylesheet">
     <title data-react-helmet="true"></title>
     <style>
-        .reward-modal{
+        .reward-modal {
             position: fixed;
             top: 52%;
             z-index: 20;
             left: 50%;
             margin-left: -300px;
             margin-top: -161px;
-            display:none
+            display: none
         }
-        @media (max-width: 768px){
-            .info-right{
+
+        @media (max-width: 768px) {
+            .info-right {
                 display: none;
             }
-            .book .content .support-book .gift-list .gift-item{
+
+            .book .content .support-book .gift-list .gift-item {
 
                 width: 25%;
             }
-            .book .content .support-book .gift-list{
+
+            .book .content .support-book .gift-list {
                 padding: 5px;
-                 justify-content: initial;
+                justify-content: initial;
                 flex-wrap: wrap;
             }
-            .book .content .support-book .top-fans .new-support{
-               display: none;
+
+            .book .content .support-book .top-fans .new-support {
+                display: none;
             }
-            .book .content .support-book .top-fans > div{
+
+            .book .content .support-book .top-fans > div {
                 width: 31%;
             }
-            .reward-modal{
+
+            .reward-modal {
                 width: 100%;
                 top: 16%;
                 z-index: 20;
-                 left: auto;
-                 margin-left: auto;
-                 margin-top: auto;
+                left: auto;
+                margin-left: auto;
+                margin-top: auto;
 
             }
-            .book .content .book-desc .desc-content.des-less{
+
+            .book .content .book-desc .desc-content.des-less {
                 color: #777;
             }
 
-            .iconfont icon-jiantouxia{
+            .iconfont icon-jiantouxia {
                 display: none;
             }
-            .iconfont icon-xiangzuo-copy{
+
+            .iconfont icon-xiangzuo-copy {
                 display: none;
             }
-            .book .content .comments-list{
-                padding:20px;
+
+            .book .content .comments-list {
+                padding: 20px;
             }
-            .reward-modal .rc-dialog-body .label{
+
+            .reward-modal .rc-dialog-body .label {
                 overflow: hidden;
                 margin-bottom: 0;
             }
-            .reward-modal .rc-dialog-body button{
+
+            .reward-modal .rc-dialog-body button {
                 margin-top: 8px;
             }
-            .reward-modal .rc-dialog-body .text{
+
+            .reward-modal .rc-dialog-body .text {
                 padding-left: 0;
             }
-            .reward-modal .rc-dialog-body .ipt-wrap .input{
-                flex:1;
+
+            .reward-modal .rc-dialog-body .ipt-wrap .input {
+                flex: 1;
             }
-            .reward-modal .rc-dialog-body .ipt-wrap{
+
+            .reward-modal .rc-dialog-body .ipt-wrap {
                 display: flex;
             }
-            .reward-modal .rc-dialog-content{
+
+            .reward-modal .rc-dialog-content {
                 width: 90%;
-                margin:0 auto;
+                margin: 0 auto;
             }
-            .reward-modal .rc-dialog-body textarea{
+
+            .reward-modal .rc-dialog-body textarea {
                 width: 100%;
             }
-            .rc-tabs-top .rc-tabs-nav-wrap,.book-comments{
+
+            .rc-tabs-top .rc-tabs-nav-wrap, .book-comments {
                 padding: 0 5px;
                 box-sizing: border-box;
             }
-            .book .content .book-comments textarea.wishContent{
+
+            .book .content .book-comments textarea.wishContent {
                 margin-top: 15px;
                 box-sizing: border-box;
                 width: 93%;
             }
-            .book .content .book-comments .comment-bottom{
-                padding-right:20px;
+
+            .book .content .book-comments .comment-bottom {
+                padding-right: 20px;
             }
-            .comment-box>span{
+
+            .comment-box > span {
                 display: block;
                 float: left;
             }
 
-
-            .book .content .book-comments textarea,.book .content .book-tab, .book .content .support-book .gift-list .gift-item img,.book .content .info-left{
+            .book .content .book-comments textarea, .book .content .book-tab, .book .content .support-book .gift-list .gift-item img, .book .content .info-left {
                 width: 100%;
             }
-
         }
     </style>
 </head>
 
-<body >
+<body>
 <div id="app">
     <div class="wrap">
         <include file="common:header"/>
         <div class="m-nav ">
-            <i onclick="javascript:history.back();"  class="iconfont icon-xiangzuo"></i>
+            <i onclick="javascript:history.back();" class="iconfont icon-xiangzuo"></i>
             <span>小说主页</span>
             <i class="iconfont icon-home" style="position: absolute; right: 0.3rem;"></i>
         </div>
@@ -159,7 +170,8 @@
                             <img class="book-cover" src="{$image}" alt="">
                             <div class="center"><h3>{$name}</h3>
                                 <div class="novel-author">作者：{$author}</div>
-                                <div class="cate">分类：<zhimeng table="book_category" where="['id','=',$cid]" >{$r.name}</zhimeng>
+                                <div class="cate">分类：
+                                    <zhimeng table="book_category" where="['id','=',$cid]">{$r.name}</zhimeng>
                                 </div>
                                 <if condition="$type eq 1">
                                     <div class="number">类型：原创首发</div>
@@ -175,32 +187,32 @@
                                 <div class="status">状态：
                                     <if condition="$is_end eq 1">
                                         完结
-                                       <else/>
+                                        <else/>
                                         连载中
                                     </if>
                                 </div>
                             </div>
                             <div class="buttons">
                                 <if condition="$type eq 3 || $type eq 4">
-                                        <if condition="$otherCount neq 0">
-                                            <a href="{:url('read/read',['bookId'=>$book_id,'id'=>$first_id])}">
-                                                <button class="read-btn">开始阅读</button>
-                                            </a>
-                                            <else/>
-                                            <a href="javascript:void(0);">
-                                                <button class="read-btn">没有章节</button>
-                                            </a>
-                                        </if>
+                                    <if condition="$otherCount neq 0">
+                                        <a href="{:url('read/read',['bookId'=>$book_id,'id'=>$first_id])}">
+                                            <button class="read-btn">开始阅读</button>
+                                        </a>
+                                        <else/>
+                                        <a href="javascript:void(0);">
+                                            <button class="read-btn">没有章节</button>
+                                        </a>
+                                    </if>
                                     <else/>
-                                        <if condition="$first['id']">
-                                            <a href="{:url('read/read',['b_id'=>$id,'id'=>$first['id']])}">
-                                                <button class="read-btn">开始阅读</button>
-                                            </a>
-                                            <else/>
-                                            <a href="javascript:void(0);">
-                                                <button class="read-btn">没有章节</button>
-                                            </a>
-                                        </if>
+                                    <if condition="$first['id']">
+                                        <a href="{:url('read/read',['b_id'=>$id,'id'=>$first['id']])}">
+                                            <button class="read-btn">开始阅读</button>
+                                        </a>
+                                        <else/>
+                                        <a href="javascript:void(0);">
+                                            <button class="read-btn">没有章节</button>
+                                        </a>
+                                    </if>
                                 </if>
 
                                 <if condition="$is_take['id']">
@@ -225,7 +237,8 @@
                                     <div style=" height: 42px;" class="rc-tabs-nav-wrap">
                                         <div class="rc-tabs-nav-scroll">
                                             <div class="rc-tabs-nav rc-tabs-nav-animated">
-                                                <div class="rc-tabs-ink-bar rc-tabs-ink-bar-animated"style="display: block; transform: translate3d(0px, 0px, 0px); width: 56px;">
+                                                <div class="rc-tabs-ink-bar rc-tabs-ink-bar-animated"
+                                                     style="display: block; transform: translate3d(0px, 0px, 0px); width: 56px;">
 
                                                 </div>
                                                 <div role="tab" aria-disabled="false" aria-selected="true"
@@ -233,7 +246,8 @@
                                                 </div>
                                                 <div role="tab" aria-disabled="false" aria-selected="false"
                                                      class=" rc-tabs-tab">
-                                                    <a style="color: #77c2b5" href="{:url('read/chapter_list',['id'=>$id])}">
+                                                    <a style="color: #77c2b5"
+                                                       href="{:url('read/chapter_list',['id'=>$id])}">
                                                         <if condition="$type eq 3 || $type eq 4">
                                                             作品目录({$otherCount}章)
                                                             <else/>
@@ -264,20 +278,22 @@
                                         <div class="latest-chapter">
                                             <h4>最新章节
                                                 <if condition="$type eq 3 || $type eq 4">
-                                                    <a target="_blank" href="{:url('read/read',['bookId'=>$book_id,'id'=>$otherNew['chapterid']])}">
+                                                    <a target="_blank"
+                                                       href="{:url('read/read',['bookId'=>$book_id,'id'=>$otherNew['chapterid']])}">
                                                         <else/>
-                                                        <a target="_blank" href="{:url('read/read',['b_id'=>$last['b_id'],'id'=>$last['id']])}">
+                                                        <a target="_blank"
+                                                           href="{:url('read/read',['b_id'=>$last['b_id'],'id'=>$last['id']])}">
                                                 </if>
-                                                    <if condition="$type eq 3">
-                                                        <span>{$otherNew['title']}</span>
-                                                        <span class="push-time">更新时间：{$otherNew.updateTime|date='Y-m-d H:i'}</span>
-                                                        <elseif condition="$type eq 4"/>
-                                                        <span>{$otherNew['chaptername']}</span>
-                                                        <span class="push-time">更新时间：{$otherNew.lastupdate}</span>
-                                                        <else/>
-                                                        <span>{$last['name']}</span>
-                                                        <span class="push-time">更新时间：{$last.time|date='Y-m-d H:i'}</span>
-                                                    </if>
+                                                <if condition="$type eq 3">
+                                                    <span>{$otherNew['title']}</span>
+                                                    <span class="push-time">更新时间：{$otherNew.updateTime|date='Y-m-d H:i'}</span>
+                                                    <elseif condition="$type eq 4"/>
+                                                    <span>{$otherNew['chaptername']}</span>
+                                                    <span class="push-time">更新时间：{$otherNew.lastupdate}</span>
+                                                    <else/>
+                                                    <span>{$last['name']}</span>
+                                                    <span class="push-time">更新时间：{$last.time|date='Y-m-d H:i'}</span>
+                                                </if>
                                                 </a>
                                             </h4>
                                             <div class="book-content">
@@ -287,12 +303,14 @@
                                                     {$last['content']}...
                                                 </if>
                                                 <if condition="$type eq 3 || $type eq 4">
-                                                    <a target="_blank" href="{:url('read/read',['bookId'=>$book_id,'id'=>$otherNew['chapterid']])}">
-                                                    <else/>
-                                                    <a target="_blank" href="{:url('read/read',['b_id'=>$last['b_id'],'id'=>$last['id']])}">
+                                                    <a target="_blank"
+                                                       href="{:url('read/read',['bookId'=>$book_id,'id'=>$otherNew['chapterid']])}">
+                                                        <else/>
+                                                        <a target="_blank"
+                                                           href="{:url('read/read',['b_id'=>$last['b_id'],'id'=>$last['id']])}">
                                                 </if>
 
-                                                    <span class="continue-read">点击阅读&gt;&gt;</span>
+                                                <span class="continue-read">点击阅读&gt;&gt;</span>
                                                 </a>
                                             </div>
                                         </div>
@@ -366,7 +384,8 @@
                                                         </div>
                                                         <else/>
                                                         <div class="mod gift-item">
-                                                            <span class="tx" style="line-height: 80px; font-size: 16px; background: rgb(205, 206, 211); color: rgb(119, 119, 119);">空缺</span>
+                                                            <span class="tx"
+                                                                  style="line-height: 80px; font-size: 16px; background: rgb(205, 206, 211); color: rgb(119, 119, 119);">空缺</span>
                                                             <img class="badge" src="images/pcw.png" alt="">
                                                             <span class="name">虚位以待</span>
                                                             <p class="shangwei" data-id="1">立即上位&gt;&gt;</p>
@@ -375,7 +394,7 @@
 
                                                 </div>
                                                 <div class="top2">
-                                                    <if  condition="$month">
+                                                    <if condition="$month">
                                                         <div class="mod">
                                                             <img class="tx" src="{$month['image']}" alt="">
                                                             <img class="badge" src="images/tuhao.png" alt="">
@@ -387,7 +406,8 @@
                                                         </div>
                                                         <else/>
                                                         <div class="mod gift-item">
-                                                            <span class="tx" style="line-height: 80px; font-size: 16px; background: rgb(205, 206, 211); color: rgb(119, 119, 119);">空缺</span>
+                                                            <span class="tx"
+                                                                  style="line-height: 80px; font-size: 16px; background: rgb(205, 206, 211); color: rgb(119, 119, 119);">空缺</span>
                                                             <img class="badge" src="images/tuhao.png" alt="">
                                                             <span class="name">虚位以待</span>
                                                             <p class="shangwei" data-id="1">立即上位&gt;&gt;</p>
@@ -407,7 +427,8 @@
                                                         </div>
                                                         <else/>
                                                         <div class="mod gift-item">
-                                                            <span class="tx" style="line-height: 80px; font-size: 16px; background: rgb(205, 206, 211); color: rgb(119, 119, 119);">空缺</span>
+                                                            <span class="tx"
+                                                                  style="line-height: 80px; font-size: 16px; background: rgb(205, 206, 211); color: rgb(119, 119, 119);">空缺</span>
                                                             <img class="badge" src="images/jinzhu.png" alt="">
                                                             <span class="name">虚位以待</span>
                                                             <p class="shangwei" data-id="1">立即上位&gt;&gt;</p>
@@ -421,9 +442,10 @@
                                                         <div class="cycle-wrap">
                                                             <ul>
                                                                 <volist name="news" id="vo">
-                                                                <li>
-                                                                    {$vo['name']}打赏了 x{$vo['number']} {$vo['gift_name']}
-                                                                </li>
+                                                                    <li>
+                                                                        {$vo['name']}打赏了
+                                                                        x{$vo['number']} {$vo['gift_name']}
+                                                                    </li>
                                                                 </volist>
                                                             </ul>
                                                         </div>
@@ -438,7 +460,8 @@
                                                     <i class="iconfont icon-touxiang2"></i>
                                                 </span>
                                                 <i class="iconfont icon-xiangzuo-copy"></i>
-                                                <textarea class="wishContent" name="" id="textarea" cols="30" rows="10" placeholder="我也来说两句..."></textarea>
+                                                <textarea class="wishContent" name="" id="textarea" cols="30" rows="10"
+                                                          placeholder="我也来说两句..."></textarea>
                                                 <div class="comment-bottom">
                                                     <i data-type="textarea" class="iconfont icon-smile"></i>
                                                     <span class="wordsNum">你还能输入500字</span>
@@ -448,20 +471,20 @@
                                         </div>
                                         <div class="comments-list">
                                             <volist name="msg" id="vo">
-                                            <div class="comment-item">
-                                                <div class="item-left">
-                                                    <img class="user-tx" src="{$vo['image']}" alt="">
-                                                </div>
-                                                <div class="item-right">
-                                                    <span class="user-name">{$vo['u_name']}</span>
-                                                    <div class="user-comment">
-                                                        {$vo['content']}
+                                                <div class="comment-item">
+                                                    <div class="item-left">
+                                                        <img class="user-tx" src="{$vo['image']}" alt="">
                                                     </div>
-                                                    <div class="comment-info">
-                                                        <span class="co-time">{$vo['time']|date='Y-m-d H:i'}</span>
+                                                    <div class="item-right">
+                                                        <span class="user-name">{$vo['u_name']}</span>
+                                                        <div class="user-comment">
+                                                            {$vo['content']}
+                                                        </div>
+                                                        <div class="comment-info">
+                                                            <span class="co-time">{$vo['time']|date='Y-m-d H:i'}</span>
+                                                        </div>
                                                     </div>
                                                 </div>
-                                            </div>
                                             </volist>
                                         </div>
                                     </div>
@@ -485,7 +508,7 @@
                                                 <else/>
                                                 <div class="fans-list">
                                                     <div class="null-reward gift-item">
-                                                        <img src="images/dashang_null.png"alt="">
+                                                        <img src="images/dashang_null.png" alt="">
                                                         <p>粉丝榜还有位置，快来送礼物吧 作者大大很期待！</p>
                                                         <button data-id="1">给作者大大送礼物</button>
                                                     </div>
@@ -495,9 +518,12 @@
                                         </div>
                                         <div class="same-recommend"><h4>同类推荐</h4>
                                             <div class="same-list">
-                                                <zhimeng table="book" where="[['status','=',1],['cid','=',$cid],['is_del','=',0]]" limit="10">
+                                                <zhimeng table="book"
+                                                         where="[['status','=',1],['cid','=',$cid],['is_del','=',0]]"
+                                                         limit="10">
                                                     <div class="r-item hot-recommend-item clearfix" data-id="151">
-                                                        <a class="img-link" target="_blank" href="{:url('read/index',['id'=>$r['id']])}">
+                                                        <a class="img-link" target="_blank"
+                                                           href="{:url('read/index',['id'=>$r['id']])}">
                                                             <img src="{$r.image}" alt="">
                                                         </a>
                                                         <a target="_blank" href="{:url('read/index',['id'=>$r['id']])}">
@@ -508,7 +534,8 @@
                                                         </div>
                                                         <div class="author">分类：
                                                             <span>
-                                                                <zhimeng table="book_category" where="['id','=',$cid]" id="vo">
+                                                                <zhimeng table="book_category" where="['id','=',$cid]"
+                                                                         id="vo">
                                                                     {$vo.name}
                                                                 </zhimeng>
                                                             </span>
@@ -529,40 +556,41 @@
                 <!--礼物弹出层-->
                 <div class="rc-dialog-mask rc-dialog-mask-hidden"></div>
                 <div class="rc-dialog reward-modal" role="document">
-                    <div class="rc-dialog-content" >
-                    <button aria-label="Close" class="rc-dialog-close">
-                        <span class="rc-dialog-close-x"></span>
-                    </button>
-                    <div class="rc-dialog-header">
-                        <div class="rc-dialog-title" id="rcDialogTitle0">打赏</div>
-                    </div>
-                    <div class="rc-dialog-body">
-                        <div class="label">
-                            <span class="tag">数量：</span>
-                            <div class="ipt-wrap">
-                                <span class="reduces"><i style="margin-left: 11px;" class="iconfont icon-minus"></i></span>
-                                <span class="input">
+                    <div class="rc-dialog-content">
+                        <button aria-label="Close" class="rc-dialog-close">
+                            <span class="rc-dialog-close-x"></span>
+                        </button>
+                        <div class="rc-dialog-header">
+                            <div class="rc-dialog-title" id="rcDialogTitle0">打赏</div>
+                        </div>
+                        <div class="rc-dialog-body">
+                            <div class="label">
+                                <span class="tag">数量：</span>
+                                <div class="ipt-wrap">
+                                    <span class="reduces"><i style="margin-left: 11px;" class="iconfont icon-minus"></i></span>
+                                    <span class="input">
                                     <img id="img" src="images/img1.PNG" alt="">X  <i>1</i>
                                 </span>
-                                <span class="adds"><i style="margin-left: 11px;"  class="iconfont icon-plus"></i></span>
+                                    <span class="adds"><i style="margin-left: 11px;"
+                                                          class="iconfont icon-plus"></i></span>
+                                </div>
+                                <div class="text">
+                                    <span id="total" style="float: left">本次共花费 <i>50</i> 书币</span>
+                                    <i class="g_price" style="display: none">50</i>
+                                    <i class="g_name" style="display: none">1</i>
+                                    <a target="_blank" href="{:url('recharge/recharge')}">
+                                        去充值&gt;&gt;
+                                    </a>
+                                    <span>账户余额 {$user['money']} 书币</span>
+                                </div>
                             </div>
-                            <div class="text">
-                                <span id="total" style="float: left">本次共花费 <i>50</i> 书币</span>
-                                <i class="g_price" style="display: none">50</i>
-                                <i class="g_name" style="display: none">1</i>
-                                <a target="_blank" href="{:url('recharge/recharge')}">
-                                    去充值&gt;&gt;
-                                </a>
-                                <span>账户余额 {$user['money']} 书币</span>
+                            <div class="label">
+                                <span class="tag">赠言：</span>
+                                <textarea id="msg" name="textarea" placeholder="">感激涕零，潸然泪下，于是想给一朵玫瑰！</textarea>
                             </div>
+                            <button id="gift" style="margin-left: 41px;">确认赏TA</button>
                         </div>
-                        <div class="label">
-                            <span class="tag">赠言：</span>
-                            <textarea id="msg" name="textarea" placeholder="">感激涕零，潸然泪下，于是想给一朵玫瑰！</textarea>
-                        </div>
-                        <button id="gift" style="margin-left: 41px;">确认赏TA</button>
                     </div>
-                </div>
                 </div>
 
                 <include file="common:footer"/>
@@ -587,44 +615,44 @@
         $('span.input').find('i').html('1');
         var name = $(this).attr('data-id');
         var img = $(this).find('img').attr('src');
-        if(img == '/public/default/images/dashang_null.png'){
+        if (img == '/public/default/images/dashang_null.png') {
             img = '/public/default/images/img1.PNG'
         }
-        if(img == '/public/default/images/pcw.png'){
+        if (img == '/public/default/images/pcw.png') {
             img = '/public/default/images/img1.PNG'
         }
-        if(img == '/public/default/images/tuhao.png'){
+        if (img == '/public/default/images/tuhao.png') {
             img = '/public/default/images/img1.PNG'
         }
-        if(img == '/public/default/images/jinzhu.png'){
+        if (img == '/public/default/images/jinzhu.png') {
             img = '/public/default/images/img1.PNG'
         }
         var price = $(this).find('span.count').find('span').html();
         console.log(price);
-        if (price == undefined){
+        if (price == undefined) {
             price = 50;
         }
         console.log(price);
-        $('#total').html('本次共花费'+'<i>'+price+'</i>'+'书币');
+        $('#total').html('本次共花费' + '<i>' + price + '</i>' + '书币');
         $('.g_price').html(price);
         $('.g_name').html(name);
-        $('#img').attr('src',img);
-        if (name == 1){
+        $('#img').attr('src', img);
+        if (name == 1) {
             $('#msg').val('感激涕零，潸然泪下，于是想给您一朵玫瑰！');
         }
-        if (name == 2){
+        if (name == 2) {
             $('#msg').val('爱你，就给你松露巧克力，追文甜甜又蜜蜜！');
         }
-        if (name == 3){
+        if (name == 3) {
             $('#msg').val('爱你，就要送你金元宝！');
         }
-        if (name == 4){
+        if (name == 4) {
             $('#msg').val('爱情恒久远，钻石永流传！');
         }
-        if (name == 5){
+        if (name == 5) {
             $('#msg').val('尊贵的我，和尊贵的你之间，就差一辆南瓜马车！');
         }
-        if (name == 6){
+        if (name == 6) {
             $('#msg').val('哔哔哔！一符在手，哪里不通贴哪里，保你文思泉涌，日码百万！');
         }
     })
@@ -646,16 +674,17 @@
         var msg = $('#msg').val();
         var b_id = $('#b_id').val();
         $.ajax({
-            url:"{:url('read/toGift')}",
+            url: "{:url('read/toGift')}",
             data:{"b_id":b_id,"name":name,"number":number,"u_price":u_price,"msg":msg},
-            type:"POST",
-            success:function(req){
+            type: "POST",
+            success: function (req) {
                 var c = JSON.parse(req);
-                if (c.status == 0){
-                    layer.msg(c.msg, { offset: '300px' }); return;
+                if (c.status == 0) {
+                    layer.msg(c.msg, {offset: '300px'});
+                    return;
                 }
-                if (c.status == 1){
-                    layer.msg(c.msg, { offset: '300px' });
+                if (c.status == 1) {
+                    layer.msg(c.msg, {offset: '300px'});
                     window.location.reload();
                 }
             }
@@ -669,8 +698,8 @@
 
         var abs = $('#total').find('i');
         var sized = $('i.g_price');
-        abs.html(parseInt(Number(sized.text()*Number(t.text()))))
-        if (Number(t.text()) <=1) {
+        abs.html(parseInt(Number(sized.text() * Number(t.text()))))
+        if (Number(t.text()) <= 1) {
             t.html(1);
             abs.html(Number(sized.text()))
         }
@@ -683,27 +712,30 @@
         t.html(parseInt(Number(t.text()) + 1));
         var sized = $('i.g_price');
         var abs = $('#total').find('i');
-        abs.html(parseInt(Number(sized.text()*Number(t.text()))))
+        abs.html(parseInt(Number(sized.text() * Number(t.text()))))
     })
 
     // 加入书架
     $('.take').click(function () {
         var b_id = $('#b_id').val();
         var u_id = $('#u_id').val();
-        if (u_id == ''){
-            setTimeout(function(){ window.location.href = "{:url('login/login')}"; }, 0);
+        if (u_id == '') {
+            setTimeout(function () {
+                window.location.href = "{:url('login/login')}";
+            }, 0);
             return false;
         }
         $.ajax({
-            url:"{:url('read/take')}",
+            url: "{:url('read/take')}",
             data:{"b_id":b_id},
-            type:"POST",
-            success:function(req){
-                if (req.code == 0){
-                    layer.msg(req.msg, { offset: '300px' }); return false;
+            type: "POST",
+            success: function (req) {
+                if (req.code == 0) {
+                    layer.msg(req.msg, {offset: '300px'});
+                    return false;
                 }
-                if (req.code == 1){
-                    layer.msg(req.msg, { offset: '300px' });
+                if (req.code == 1) {
+                    layer.msg(req.msg, {offset: '300px'});
                     $('.bookrack-btn').addClass('disabled')
                     $('.bookrack-btn').removeClass('take')
                     $('.bookrack-btn').html('已在书架')
@@ -734,25 +766,27 @@
             len = 0
         }
         //显示字数
-        $(".wordsNum").html('你还能输入'+(500-len) + '字');
+        $(".wordsNum").html('你还能输入' + (500 - len) + '字');
     });
     // 留言
     $('#go_msg').click(function () {
         var content = $('#textarea').val();
         var b_id = $('#b_id').val();
-        if(content == ''){
-            layer.msg('请出入留言内容', { offset: '300px' });return false;
+        if (content == '') {
+            layer.msg('请出入留言内容', {offset: '300px'});
+            return false;
         }
         $.ajax({
-            url:"{:url('read/to_msg')}",
+            url: "{:url('read/to_msg')}",
             data:{"b_id":b_id,"content":content},
-            type:"POST",
-            success:function(req){
+            type: "POST",
+            success: function (req) {
                 console.log(req);
-                if (req.code == 0){
-                    layer.msg(req.msg, { offset: '300px' }); return false;
+                if (req.code == 0) {
+                    layer.msg(req.msg, {offset: '300px'});
+                    return false;
                 }
-                if (req.code == 1){
+                if (req.code == 1) {
                     window.location.reload();
                 }
             }

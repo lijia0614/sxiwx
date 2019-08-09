@@ -53,7 +53,6 @@ class Pagepay
         if (empty(trim($params['subject']))) {
             self::processError('商品标题(subject)必填');
         }
-
         if (floatval(trim($params['total_amount'])) <= 0) {
             self::processError('退款金额(total_amount)为大于0的数');
         }

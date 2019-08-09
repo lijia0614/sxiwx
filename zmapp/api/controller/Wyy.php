@@ -1,7 +1,7 @@
 <?php
 /**
  * 双溪文学输出标准API
- * 推宝
+ * 微阅云
  * Created by PhpStorm.
  * User: 李贾
  * Date: 2019/5/9
@@ -14,16 +14,18 @@ namespace app\api\controller;
 use app\home\controller\Common;
 use think\Db;
 
-class Tb extends Common
+class Wyy extends Common
 {
     public function __construct() {
         parent::__construct();
-        $cp_id = 8; // 追书
+        $cp_id = 10; // 追书
         $ips = [
-            '120.26.199.239',
-            '121.40.223.19',
-            '125.120.161.248',
-            '222.209.32.165' // 本地
+            '60.167.76.222',
+			'60.167.77.123',
+			'121.42.249.225',
+			'121.42.37.88 ',
+			'36.63.132.235',
+            '222.211.205.181' // 本地
         ];
         $ip = $_SERVER["REMOTE_ADDR"];
         $checkIp = in_array($ip,$ips);
@@ -48,7 +50,7 @@ class Tb extends Common
      * 获取书籍列表
      */
     public function getBookList(){
-        $ids = Db::name('output_api')->where('cp_id',8)->field('ids')->find();
+        $ids = Db::name('output_api')->where('cp_id',10)->field('ids')->find();
         $this->ids = $ids['ids'];
         $books = Db::name('book')
             ->where('id','in',$this->ids)
@@ -156,7 +158,7 @@ class Tb extends Common
      * @return bool
      */
     public function checkID($id){
-        $ids = Db::name('output_api')->where('cp_id',8)->field('ids')->find();
+        $ids = Db::name('output_api')->where('cp_id',10)->field('ids')->find();
         $idArr = explode(',',$ids['ids']);
         return in_array($id,$idArr);
     }

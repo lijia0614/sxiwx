@@ -162,7 +162,6 @@ class Login extends Common {
         if ($user) {
             session_start();
             session('user_id',$user['id']);
-
             if (!empty($red)){
                 if ($check == 2){
                     $this->redirect(url($red));
@@ -195,7 +194,6 @@ class Login extends Common {
         $this->redirect(url('index/index'));
         exit;
     }
-
 
     function oauth2()
     {

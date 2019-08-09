@@ -28,7 +28,7 @@ class Zy extends Common
             '101.226.33.217',
             '182.48.105.10',
             '118.192.170.16',
-            '222.209.32.165' // 本地
+            '222.209.33.139' // 本地
         ];
         $ip = $_SERVER["REMOTE_ADDR"];
         $checkIp = in_array($ip, $ips);

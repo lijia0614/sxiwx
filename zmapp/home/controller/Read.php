@@ -2,18 +2,7 @@
 
 namespace app\home\controller;
 
-use Monolog\Handler\IFTTTHandler;
-use think\Controller;
-use think\facade\Config;
 use think\Db;
-use think\facade\Env;
-use think\facade\Validate;
-use think\facade\Session;
-use Upload\UploadFile;
-use Payments\aliPay;
-use Sms\aliyun;
-use Excels\Excel;
-use Oauths\qq;
 
 
 class Read extends Common {
@@ -238,10 +227,8 @@ class Read extends Common {
         $r = httpPost($get_content_url);
         $c_info = object_array($r['data']);
         $data = $c_info['books']['content'];
-
         $book = Db::name('book')->where('other_bookid',$bookId)->find();
         c_print($book);
-
     }
 
     public function readList(){

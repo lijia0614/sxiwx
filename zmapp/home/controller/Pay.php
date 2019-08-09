@@ -261,6 +261,7 @@ class Pay extends Common
 
     /**
      * 微信成功回调地址
+     * 异步通知
      */
     public function redirect_url()
     {

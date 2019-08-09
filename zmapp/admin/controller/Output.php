@@ -242,6 +242,87 @@ class Output extends Common {
 
 
     /**
+     * 微阅云
+     * 输出接口
+     */
+    public function weiYueYun(){
+        $list = Db::name('book')
+            ->where(
+                [
+                    'status' => 1,
+                    'is_del' => 0,
+                    'type' => [1,2,5,6], // 5是公主书城 6云景
+                ]
+            )
+            ->field('id,name')
+            ->select();
+        if ($_POST){
+            $this->doSaveWyy();
+        }
+        $outputBookIds = Db::name('output_api')->where('cp_id',10)->field('ids,status')->find();
+        $ids = explode(',',$outputBookIds['ids']);
+        $this->assign('ids',$ids);
+        $this->assign('status',$outputBookIds['status']);
+        $this->assign('list',$list);
+        return view();
+    }
+
+
+    /**
+     * 米读
+     * 输出接口
+     */
+    public function miDu(){
+        $list = Db::name('book')
+            ->where(
+                [
+                    'status' => 1,
+                    'is_del' => 0,
+                    'type' => [1,2,5,6], // 5是公主书城 6云景
+                ]
+            )
+            ->field('id,name')
+            ->select();
+        if ($_POST){
+            $this->doSaveMd();
+        }
+        $outputBookIds = Db::name('output_api')->where('cp_id',11)->field('ids,status')->find();
+        $ids = explode(',',$outputBookIds['ids']);
+        $this->assign('ids',$ids);
+        $this->assign('status',$outputBookIds['status']);
+        $this->assign('list',$list);
+        return view();
+    }
+
+
+    /**
+     * 淘小说
+     * 输出接口
+     */
+    public function taoXs(){
+        $list = Db::name('book')
+            ->where(
+                [
+                    'status' => 1,
+                    'is_del' => 0,
+                    'type' => [1,2,5,6], // 5是公主书城 6云景
+                ]
+            )
+            ->field('id,name')
+            ->select();
+        if ($_POST){
+            $this->doSaveTsx();
+        }
+        $outputBookIds = Db::name('output_api')->where('cp_id',12)->field('ids,status')->find();
+        $ids = explode(',',$outputBookIds['ids']);
+        $this->assign('ids',$ids);
+        $this->assign('status',$outputBookIds['status']);
+        $this->assign('list',$list);
+        return view();
+    }
+
+
+    /**
      * 落尘
      * 保存接口操作
      */
@@ -469,6 +550,84 @@ class Output extends Common {
         }
     }
 
+
+    /**
+     * 微阅云
+     * 保存接口操作
+     */
+    public function doSaveWyy(){
+        $post = input('post.');
+        $cp_id = 10;
+        $data = [
+            'ids' => $post['ids'],
+            'update_time' => time()
+        ];
+        $check = Db::name('output_api')->where('cp_id',$cp_id)->find();
+        if ($check){
+            $res = Db::name('output_api')->where('cp_id',$cp_id)->update($data);
+        }else{
+            $data['cp_id'] = $cp_id;
+            $res = Db::name('output_api')->insert($data);
+        }
+        if ($res){
+            $this->success('操作成功');
+        }else{
+            $this->error('操作失败');
+        }
+    }
+
+    /**
+     * 米读
+     * 保存接口操作
+     */
+    public function doSaveMd(){
+        $post = input('post.');
+        $cp_id = 11;
+        $data = [
+            'ids' => $post['ids'],
+            'update_time' => time()
+        ];
+        $check = Db::name('output_api')->where('cp_id',$cp_id)->find();
+        if ($check){
+            $res = Db::name('output_api')->where('cp_id',$cp_id)->update($data);
+        }else{
+            $data['cp_id'] = $cp_id;
+            $res = Db::name('output_api')->insert($data);
+        }
+        if ($res){
+            $this->success('操作成功');
+        }else{
+            $this->error('操作失败');
+        }
+    }
+
+
+    /**
+     * 淘小说
+     * 保存接口操作
+     */
+    public function doSaveTsx(){
+        $post = input('post.');
+        $cp_id = 12;
+        $data = [
+            'ids' => $post['ids'],
+            'update_time' => time()
+        ];
+        $check = Db::name('output_api')->where('cp_id',$cp_id)->find();
+        if ($check){
+            $res = Db::name('output_api')->where('cp_id',$cp_id)->update($data);
+        }else{
+            $data['cp_id'] = $cp_id;
+            $res = Db::name('output_api')->insert($data);
+        }
+        if ($res){
+            $this->success('操作成功');
+        }else{
+            $this->error('操作失败');
+        }
+    }
+
+
     /**
      * 落尘
      * 修改接口状态
@@ -668,6 +827,72 @@ class Output extends Common {
         }
     }
 
+    /**
+     * 掌阅
+     * 修改接口状态
+     */
+    public function editStatusWyy(){
+        $status = input('post.status','','intval');
+        $data = [
+            'status' => $status,
+            'update_time' => time()
+        ];
+        $res = Db::name('output_api')->where('cp_id',10)->update($data);
+        if ($res){
+            if ($status == 1){
+                $this->success('接口开启成功！');
+            }else{
+                $this->success('接口关闭成功');
+            }
+        }else{
+            $this->error('没有改变状态');
+        }
+    }
+
+    /**
+     * 米读
+     * 修改接口状态
+     */
+    public function editStatusMd(){
+        $status = input('post.status','','intval');
+        $data = [
+            'status' => $status,
+            'update_time' => time()
+        ];
+        $res = Db::name('output_api')->where('cp_id',11)->update($data);
+        if ($res){
+            if ($status == 1){
+                $this->success('接口开启成功！');
+            }else{
+                $this->success('接口关闭成功');
+            }
+        }else{
+            $this->error('没有改变状态');
+        }
+    }
+
+
+    /**
+     * 淘小说
+     * 修改接口状态
+     */
+    public function editStatusTxs(){
+        $status = input('post.status','','intval');
+        $data = [
+            'status' => $status,
+            'update_time' => time()
+        ];
+        $res = Db::name('output_api')->where('cp_id',12)->update($data);
+        if ($res){
+            if ($status == 1){
+                $this->success('接口开启成功！');
+            }else{
+                $this->success('接口关闭成功');
+            }
+        }else{
+            $this->error('没有改变状态');
+        }
+    }
 }
 
 

@@ -110,7 +110,7 @@ class Yj extends Common
     /**
      * 获取章节列表
      */
-    public function getChapterList(){
+    public function getChapters(){
         $n = input('get.n','','intval');
         $bookId = input('get.bookId','',"intval");
         $b_id = input('get.b_id','','intval');

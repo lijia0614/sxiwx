@@ -1,7 +1,6 @@
 <?php
 /**
- * 双溪文学输出标准API
- * 米读
+ * 双溪文学输出标准API模板
  * Created by PhpStorm.
  * User: 李贾
  * Date: 2019/5/9
@@ -14,16 +13,24 @@ namespace app\api\controller;
 use app\home\controller\Common;
 use think\Db;
 
-class Md extends Common
+class Sxwx extends Common
 {
-    private $cp_id = 11;
+    private $cp_id = 1; // 对方CP_ID,必填
+    private $ids = []; // 所有授权书籍ID
+
+    /**
+     * 返回状态码说明
+     * 8200 成功
+     * 8400 请求参数错误
+     * 8401 身份验证错误
+     * 8403 拒绝请求
+     * 8404 书籍未授权/请求书籍不存在
+     */
 
     public function __construct() {
         parent::__construct();
         $ips = [
-            '101.95.101.90',
-			'118.190.216.176',
-			'47.93.213.28',
+            '101.95.101.90',  // 对方IP
             '222.211.206.176' // 本地
         ];
         $ip = $_SERVER["REMOTE_ADDR"];
@@ -38,12 +45,7 @@ class Md extends Common
         }
     }
 
-    // 8200 成功
-    // 8400 请求参数错误
-    // 8401 身份验证错误
-    // 8403 拒绝请求
-    // 8404 书籍授权/请求书籍不存在
-    private $ids = [];
+
 
     /**
      * 获取书籍列表
@@ -75,7 +77,6 @@ class Md extends Common
         if (!$bookid){
             z_json(8400,'bookid error','');
         }
-
         $book = Db::name('book')
             ->alias('a')
             ->join('book_category b','a.cid = b.id')
