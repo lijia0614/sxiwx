@@ -29,15 +29,17 @@ class Save extends Common
             $arr = explode("###",$str);
             unset($arr[0]);
             $new_arr = array();
-            //c_print($arr);die;
+//            c_print($arr);
             foreach ($arr as $key => $val){
                 $length = strpos($val,"<br />");
                 $content = mb_substr($val,$length);
                 $title = mb_substr($val,0,$length);
-                $new_arr[]['name'] = 1;
-                $new_arr[]['content'] = 2;
-//                c_print($content);die;
+                $new_arr[] = [
+                    'name' => $title,
+                    'content' => $content
+                ];
             }
+            c_print($new_arr);
             fclose($new_arr);
         }
     }
